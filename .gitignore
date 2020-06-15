@@ -1,0 +1,5 @@
+# Project exclude paths
+/frontend/target/
+/oauth-authorization-server/target/
+/logs/
+/.idea/
