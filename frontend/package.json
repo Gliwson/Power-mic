@@ -27,7 +27,9 @@
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.0.0-tactical-rc.1",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "keycloak-angular": "^7.1.0",
+    "keycloak-js": "^8.0.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.8",

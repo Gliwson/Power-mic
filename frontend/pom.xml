@@ -7,7 +7,7 @@
     <packaging>war</packaging>
 
     <parent>
-        <groupId>pl</groupId>
+        <groupId>pl.gliwson</groupId>
         <artifactId>powerTest</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
@@ -57,11 +57,11 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>target/resources</directory>
-                <targetPath>static</targetPath>
-            </resource>
-        </resources>
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>target/resources</directory>-->
+<!--                <targetPath>static</targetPath>-->
+<!--            </resource>-->
+<!--        </resources>-->
     </build>
 </project>

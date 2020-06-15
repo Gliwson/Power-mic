@@ -30,7 +30,7 @@ export class AppService {
         params.append('code', code);
 
         let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'});
-        this._http.post('http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/token', params.toString(), {headers: headers})
+        this._http.post('http://localhost:8083/auth/realms/gliwson/protocol/openid-connect/token', params.toString(), {headers: headers})
             .subscribe(
                 data => this.saveToken(data),
                 err => alert('Invalid Credentials')
@@ -62,7 +62,7 @@ export class AppService {
         const token = Cookie.get('id_token');
         Cookie.delete('access_token');
         Cookie.delete('id_token');
-        const logoutURL = 'http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/logout?id_token_hint='
+        const logoutURL = 'http://localhost:8083/auth/realms/gliwson/protocol/openid-connect/logout?id_token_hint='
             + token
             + '&post_logout_redirect_uri=' + this.redirectUri;
 
