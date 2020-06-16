@@ -1,4 +1,36 @@
-<h1>Spring Boot Angular Pagination Example App</h1>
-<app-toolbar></app-toolbar>
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <a class="navbar-brand" routerLink="/">
+        <i class="oi oi-home text-white h2 align-middle"></i>
+        Power
+    </a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " [collapse]="isCollapsed" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            </li>
+            <li class="nav-item dropdown" dropdown>
+                <a class="nav-link dropdown-toggle" dropdownToggle role="button" (click)="false">
+                    <span class="oi oi-person" aria-hidden="true"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+                    <div class="divider dropdown-divider"></div>
+                    <a class="dropdown-item" (click)="doLogout()" style="cursor: pointer;">Log out</a>
+                </div>
+            </li>
+        </ul>
+        <ng-template #templateForNotLoggedIn>
+            <button type="button" class="btn btn-outline-light ml-auto" (click)="doLogin()">Login</button>
+        </ng-template>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <app-alert></app-alert>
+    <app-toolbar></app-toolbar>
+    <router-outlet></router-outlet>
+</div>
 

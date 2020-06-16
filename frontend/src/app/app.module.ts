@@ -4,37 +4,61 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {Task2Component} from './task2/task2.component';
-import {Task1Component} from './task1/task1.component';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
+import {Task2Component} from './components/task2/task2.component';
+import {Task1Component} from './components/task1/task1.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
-import {HomeComponent} from './home.component';
-import {FooComponent} from './foo.component';
-import {ToolbarComponent} from './toolbar/toolbar.component';
-import {ProtectedComponent} from './protected/protected.component';
-import {PublicComponent} from './public/public.component';
-import {HeaderComponent} from './header/header.component';
+
+import {ToolbarComponent} from './components/toolbar/toolbar.component';
+import {ProtectedComponent} from './components/protected/protected.component';
+import {PublicComponent} from './components/public/public.component';
+import {HeaderComponent} from './components/header/header.component';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {initializer} from '../utils/app-init';
+import {DatePipe} from '@angular/common';
+import {environment} from '../environments/environment';
+
+import {TwoDigitDecimalNumberDirective} from './directives/two-digit-decimal-number.directive';
+import {AlertComponent} from './components/alert/alert.component';
+
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {CustomerStore} from './stores/customer.store';
+import {HttpErrorInterceptor} from './interceptor/http-error.interceptor';
+
+export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
+    return (): Promise<any> => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await keycloak.init(environment.keycloakOptions);
+                console.log('Keycloak is initialized');
+                resolve();
+            } catch (error) {
+                console.log('Error thrown in init ' + error);
+                reject(error);
+            }
+        });
+    };
+}
 
 @NgModule({
     declarations: [
         AppComponent,
         Task1Component,
         Task2Component,
-        HomeComponent,
-        FooComponent,
         ToolbarComponent,
         HeaderComponent,
         ProtectedComponent,
-        PublicComponent
+        PublicComponent,
+        TwoDigitDecimalNumberDirective,
+        AlertComponent
     ],
     imports: [
         BrowserModule,
@@ -52,19 +76,17 @@ import {initializer} from '../utils/app-init';
         ReactiveFormsModule,
         MatInputModule,
         MatSortModule,
-        KeycloakAngularModule
+        KeycloakAngularModule,
+        CollapseModule.forRoot(),
+        TooltipModule.forRoot(),
+        ModalModule.forRoot(),
+        BsDropdownModule.forRoot()
     ],
-    providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
-        {
-            provide: APP_INITIALIZER,
-            useFactory: initializer,
-            deps: [KeycloakService],
-            multi: true
-        },
-        {
-            provide: LocationStrategy,
-            useClass: HashLocationStrategy
-        }
+    providers: [
+        DatePipe,
+        CustomerStore,
+        {provide: APP_INITIALIZER, useFactory: kcInitializer, multi: true, deps: [KeycloakService]},
+        {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
     ],
     bootstrap: [AppComponent]
 })

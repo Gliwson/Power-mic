@@ -1,8 +1,8 @@
 import {DataSource} from '@angular/cdk/table';
-import {Task, TodoListResponse} from './task';
+import {Task, TodoListResponse} from './models/task';
 import {CollectionViewer} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {TaskService} from './task.service';
+import {TaskService} from './services/task.service';
 import {catchError, finalize} from 'rxjs/operators';
 
 export class TaskDatasource implements DataSource<Task> {

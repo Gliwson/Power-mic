@@ -1,32 +1,42 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, Router} from '@angular/router';
 import {KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AppAuthGuard extends KeycloakAuthGuard implements CanActivate {
-    constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
+export class AppAuthGuard extends KeycloakAuthGuard {
+
+    constructor(
+        protected router: Router,
+        protected keycloakAngular: KeycloakService) {
         super(router, keycloakAngular);
     }
 
-    isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-        return new Promise((resolve, reject) => {
+    isAccessAllowed(route: ActivatedRouteSnapshot): Promise<boolean> {
+        return new Promise(async (resolve, reject) => {
             if (!this.authenticated) {
-                this.keycloakAngular.login()
-                    .catch(e => console.error(e));
-                return reject(false);
+                this.keycloakAngular.login();
+                return resolve(true);
             }
 
-            const requiredRoles: string[] = route.data.roles;
+            const requiredRoles = route.data.roles;
             if (!requiredRoles || requiredRoles.length === 0) {
                 return resolve(true);
             } else {
                 if (!this.roles || this.roles.length === 0) {
                     resolve(false);
                 }
-                resolve(requiredRoles.every(role => this.roles.indexOf(role) > -1));
+                let granted = false;
+                for (const requiredRole of requiredRoles) {
+                    if (this.roles.indexOf(requiredRole) > -1) {
+                        granted = true;
+                        break;
+                    }
+                }
+                resolve(granted);
             }
         });
     }
+
 }

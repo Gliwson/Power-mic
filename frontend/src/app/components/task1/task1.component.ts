@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {TaskDatasource} from '../task.datasource';
+import {TaskDatasource} from '../../task.datasource';
 import {MatPaginator} from '@angular/material/paginator';
-import {TaskService} from '../task.service';
+import {TaskService} from '../../services/task.service';
 import {tap} from 'rxjs/operators';
 
 @Component({

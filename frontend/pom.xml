@@ -25,7 +25,7 @@
                 <version>1.9.1</version>
                 <configuration>
                     <nodeVersion>v14.4.0</nodeVersion>
-                    <workingDirectory>src/main/resources</workingDirectory>
+<!--                    <workingDirectory>src/main/resources</workingDirectory>-->
                 </configuration>
 
                 <executions>
