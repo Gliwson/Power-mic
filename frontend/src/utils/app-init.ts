@@ -11,13 +11,15 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
                         realm: environment.keycloak.realm,
                         clientId: environment.keycloak.clientId
                     },
-                    loadUserProfileAtStartUp: false,
                     initOptions: {
                         onLoad: 'check-sso',
-                        checkLoginIframe: true
+                        checkLoginIframe: false
                     },
                     enableBearerInterceptor: true,
-                    bearerExcludedUrls: []
+                    bearerPrefix: 'Bearer',
+                    bearerExcludedUrls: [
+                        '/assets',
+                        '/clients/public']
                 });
                 resolve();
             } catch (error) {

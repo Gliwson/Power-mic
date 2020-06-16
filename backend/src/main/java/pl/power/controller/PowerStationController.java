@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.power.model.PowerStationDTO;
 import pl.power.services.PowerStationService;
@@ -13,9 +14,8 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:8089")
 @RestController
-@RequestMapping("/powerstations")
+@RequestMapping(value = "/api/powerstations", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PowerStationController {
 
     private final PowerStationService powerStationService;
