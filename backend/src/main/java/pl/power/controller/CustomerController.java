@@ -4,6 +4,7 @@ package pl.power.controller;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,13 +27,13 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("customers")
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/customers")
     public List<CustomerInfo> searchForCustomers(@RequestParam("username") Optional<String> username,
                                                  KeycloakPrincipal<KeycloakSecurityContext> principal) throws DoesNotExistException {
         if (username.isPresent()) {
             return customerService.getCustomerByUsername(username.get(), principal);
         }
-
         return customerService.getCustomers(principal);
     }
 
