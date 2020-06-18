@@ -25,4 +25,9 @@ export class CustomerStore {
         this.keycloakService.login();
         this.init();
     }
+
+    register(): void {
+        this.keycloakService.register();
+        this.init();
+    }
 }

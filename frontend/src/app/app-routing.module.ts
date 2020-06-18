@@ -12,13 +12,15 @@ const routes: Routes = [
     {
         path: 'todos1',
         component: Task1Component,
-        canActivate: [AppAuthGuard]
+        canActivate: [AppAuthGuard],
+        data: {roles: ['user']}
     }
     ,
     {
         path: 'todos2',
         component: Task2Component,
-        canActivate: [AppAuthGuard]
+        canActivate: [AppAuthGuard],
+        data: {roles: ['admin']}
     },
     {
         path: 'header',

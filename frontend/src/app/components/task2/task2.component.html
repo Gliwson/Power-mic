@@ -16,13 +16,12 @@
             <td class="mat-cell">{{task?.namePowerStation}}</td>
             <td class="mat-cell">{{task?.powerLoss}}</td>
             <td class="mat-cell">{{task?.taskType}}</td>
-            <td class="mat-cell">{{task?.startDate | date}}</td>
-            <td class="mat-cell">{{task?.endDate | date}}</td>
+            <td class="mat-cell">{{task?.startDate | date: 'fullDate':'':'pl'}}</td>
+            <td class="mat-cell">{{task?.endDate | date: 'fullDate':'':'pl'}}</td>
         </tr>
         </tbody>
     </table>
-    <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
                    (page)="nextPage($event)">
-
     </mat-paginator>
 </div>

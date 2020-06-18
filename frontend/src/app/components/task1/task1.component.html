@@ -17,12 +17,12 @@
 
     <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef> startDate</th>
-        <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'fullDate':'':'pl'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="endDate">
         <th mat-header-cell *matHeaderCellDef> endDate</th>
-        <td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'fullDate':'':'pl'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -3,34 +3,30 @@
         <i class="oi oi-home text-white h2 align-middle"></i>
         Power
     </a>
-    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed"
-            aria-controls="navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
+    <button *ngIf="!isLogged" type="button" class="btn btn-outline-light ml-auto" (click)="doLogin()">Login</button>
+    <button *ngIf="!isLogged" type="button" class="btn btn-outline-light ml-auto" (click)="doRegister()">Register
     </button>
-    <div class="collapse navbar-collapse " [collapse]="isCollapsed" id="navbarCollapse">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+    <button *ngIf="isLogged" type="button" class="btn btn-outline-light ml-auto" (click)="doLogout()">Logout</button>
+    <div class="collapse navbar-collapse " id="navbarCollapse">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li *ngIf="isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/protected" routerLinkActive="active">Protected</a>
             </li>
-            <li class="nav-item dropdown" dropdown>
-                <a class="nav-link dropdown-toggle" dropdownToggle role="button" (click)="false">
-                    <span class="oi oi-person" aria-hidden="true"></span>
-                </a>
-                <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
-                    <div class="divider dropdown-divider"></div>
-                    <a class="dropdown-item" (click)="doLogout()" style="cursor: pointer;">Log out</a>
-                </div>
+            <li *ngIf="!isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/public" routerLinkActive="active">Public</a>
+            </li>
+            <li *ngIf="isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/todos1" routerLinkActive="active">List 1</a>
+            </li>
+            <li *ngIf="isLogged" class="nav-item">
+                <a class="nav-link" routerLink="/todos2" routerLinkActive="active">List 2</a>
             </li>
         </ul>
-        <ng-template #templateForNotLoggedIn>
-            <button type="button" class="btn btn-outline-light ml-auto" (click)="doLogin()">Login</button>
-        </ng-template>
     </div>
 </nav>
 
 <div class="container-fluid">
     <app-alert></app-alert>
-    <app-toolbar></app-toolbar>
     <router-outlet></router-outlet>
 </div>
 

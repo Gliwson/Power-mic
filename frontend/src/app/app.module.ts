@@ -20,7 +20,7 @@ import {ProtectedComponent} from './components/protected/protected.component';
 import {PublicComponent} from './components/public/public.component';
 import {HeaderComponent} from './components/header/header.component';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
-import {DatePipe} from '@angular/common';
+import {DatePipe, registerLocaleData} from '@angular/common';
 import {environment} from '../environments/environment';
 
 import {TwoDigitDecimalNumberDirective} from './directives/two-digit-decimal-number.directive';
@@ -32,6 +32,9 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {CustomerStore} from './stores/customer.store';
 import {HttpErrorInterceptor} from './interceptor/http-error.interceptor';
+import localePl from '@angular/common/locales/pl';
+
+registerLocaleData(localePl);
 
 export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
     return (): Promise<any> => {
