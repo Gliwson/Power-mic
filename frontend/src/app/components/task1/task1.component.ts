@@ -3,10 +3,10 @@ import {TaskDatasource} from '../../task.datasource';
 import {MatPaginator} from '@angular/material/paginator';
 import {TaskService} from '../../services/task.service';
 import {tap} from 'rxjs/operators';
-import {ArrayDataSource, CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {Task} from '../../models/task';
 import {MatTableDataSource} from '@angular/material/table';
-import {element} from 'protractor';
+import {MatSort} from '@angular/material/sort';
+
 
 @Component({
     selector: 'app-task1',
@@ -17,8 +17,10 @@ export class Task1Component implements OnInit, AfterViewInit {
 
     displayedColumns = ['id', 'namePowerStation', 'powerLoss', 'startDate', 'endDate'];
     todoDatasource: TaskDatasource;
+    data: MatTableDataSource<Task>;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     constructor(private todoService: TaskService) {
     }
@@ -26,6 +28,12 @@ export class Task1Component implements OnInit, AfterViewInit {
     ngOnInit() {
         this.todoDatasource = new TaskDatasource(this.todoService);
         this.todoDatasource.loadTask();
+        this.todoDatasource.getTasks().pipe(tap(task => {
+            console.log(task.length);
+        })).subscribe(value => {
+            this.data = new MatTableDataSource(value);
+            this.data.sort = this.sort;
+        });
     }
 
     ngAfterViewInit() {
@@ -47,9 +55,13 @@ export class Task1Component implements OnInit, AfterViewInit {
     loadTasks() {
         this.todoDatasource.loadTask(this.paginator.pageIndex, this.paginator.pageSize);
     }
+
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
-        const dataSource = new MatTableDataSource(DataSource.apply(this.todoDatasource));
-        dataSource.filter = filterValue.trim().toLowerCase();
+        this.data.filter = filterValue.trim().toLowerCase();
+
+        if (this.data.paginator) {
+            this.data.paginator.firstPage();
+        }
     }
 }

@@ -19,6 +19,10 @@ export class TaskDatasource implements DataSource<Task> {
         return this.todoSubject.asObservable();
     }
 
+    getTasks(): Observable<Task[]> {
+        return this.todoSubject.asObservable();
+    }
+
     disconnect(collectionViewer: CollectionViewer): void {
         this.todoSubject.complete();
         this.loadingSubject.complete();

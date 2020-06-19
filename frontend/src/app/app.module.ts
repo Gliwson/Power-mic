@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {Task2Component} from './components/task2/task2.component';
 import {Task1Component} from './components/task1/task1.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -55,7 +54,6 @@ export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
     declarations: [
         AppComponent,
         Task1Component,
-        Task2Component,
         ToolbarComponent,
         HeaderComponent,
         ProtectedComponent,

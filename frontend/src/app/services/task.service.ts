@@ -17,5 +17,4 @@ export class TaskService {
         const params = request;
         return this.http.get(apiUrl, {params, headers});
     }
-
 }

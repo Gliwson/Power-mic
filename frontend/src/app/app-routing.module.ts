@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {Task2Component} from './components/task2/task2.component';
 import {Task1Component} from './components/task1/task1.component';
 import {HeaderComponent} from './components/header/header.component';
 import {PublicComponent} from './components/public/public.component';
@@ -16,12 +15,6 @@ const routes: Routes = [
         data: {roles: ['user']}
     }
     ,
-    {
-        path: 'todos2',
-        component: Task2Component,
-        canActivate: [AppAuthGuard],
-        data: {roles: ['admin']}
-    },
     {
         path: 'header',
         component: HeaderComponent,
