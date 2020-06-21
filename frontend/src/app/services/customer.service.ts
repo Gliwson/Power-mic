@@ -6,7 +6,7 @@ import {KeycloakService} from 'keycloak-angular';
 @Injectable({
     providedIn: 'root'
 })
-export class CustomerStore {
+export class Customer {
     constructor(
         private keycloakService: KeycloakService) {
     }

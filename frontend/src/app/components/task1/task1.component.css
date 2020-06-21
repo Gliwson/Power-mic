@@ -5,3 +5,13 @@ table {
 th.mat-sort-header-sorted {
     color: black;
 }
+.example-button-row button,
+.example-button-row a {
+    margin-right: 10px;
+}
+.button-right{
+    text-align: right;
+}
+.icon-display {
+    transform: scale(2);
+}

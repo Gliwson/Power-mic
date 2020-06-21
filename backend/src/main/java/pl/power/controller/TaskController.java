@@ -6,8 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
@@ -27,7 +25,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping
     public Page<TaskDTO> getTasks(@RequestParam(name = "page", defaultValue = "0") int page,
                                   @RequestParam(name = "size", defaultValue = "20") int size
@@ -37,13 +35,13 @@ public class TaskController {
         return new PageImpl<>(pairPageable.getElements(), pageable, pairPageable.getTotalElements());
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public TaskDTO getTaskById(@PathVariable Long id) {
         return taskService.findById(id);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Long createTask(@Valid @RequestBody CreateTaskDTO createTaskDTO) {
@@ -51,19 +49,19 @@ public class TaskController {
     }
 
     @Secured("ROLE_ADMIN")
-    @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
     public void deleteTaskById(@PathVariable Long id) {
         taskService.delete(id);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @PatchMapping("/")
     public TaskDTO updateTask(@Valid @RequestBody CreateTaskDTO createTaskDTO) {
         return taskService.update(createTaskDTO);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}/{taskType}")
     public Long getNumberOfEvents(@PathVariable Long id, @PathVariable String taskType) {
         return taskService.countEventsByIdPowerStation(id, taskType);

@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+    <p>Czy chcesz to usunąć pozycję {{data.id}}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" >Tak</button>
+    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Nie</button>
+</div>

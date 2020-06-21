@@ -9,7 +9,7 @@ import {AppAuthGuard} from './app-auth.guard';
 const routes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: ''},
     {
-        path: 'todos1',
+        path: 'list',
         component: Task1Component,
         canActivate: [AppAuthGuard],
         data: {roles: ['user']}
@@ -18,7 +18,8 @@ const routes: Routes = [
     {
         path: 'header',
         component: HeaderComponent,
-        // canActivate: [AppAuthGuard]
+        canActivate: [AppAuthGuard],
+        data: {roles: ['user']}
     },
     {
         path: 'public',
