@@ -1,36 +1,38 @@
-<form class="example-form" *ngIf="task">
-    <mat-form-field class="example-full-width">
-        <mat-label>Ubytek Mocy</mat-label>
-        <input disabled matInput placeholder="Id zgłoszenia" value="{{task.id}}">
-    </mat-form-field>
-    <br>
-    <mat-form-field class="example-full-width">
-        <mat-label>Ubytek Mocy</mat-label>
-        <input disabled matInput placeholder="Nazwa Bloku Elektrowni" value="{{task.namePowerStation}}">
-    </mat-form-field>
-    <br>
-    <mat-form-field class="example-full-width">
-        <mat-label>Ubytek Mocy</mat-label>
-        <input type="number" matInput placeholder="podaj moc" value="{{task.powerLoss}}">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <mat-label>Typ zadania</mat-label>
-        <mat-select [(value)]="task.taskType">
-            <mat-option>None</mat-option>
-            <mat-option value="AWARIA">AWARIA</mat-option>
-            <mat-option value="REMONT">REMONT</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <input matInput type="datetime-local" [value]="startDate" (change)="conLog($event.target.value)"/>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <input matInput type="datetime-local" [value]="endDate"/>
-    </mat-form-field>
-</form>
+<mat-card class="example-card">
+    <form class="example-form">
 
-<button class="rounded float-right" mat-raised-button color="warn" (click)="save()">Zapisz</button>
-<button class="rounded float-right" mat-raised-button color="primary" >Cofnij</button>
+        <mat-card-header>
+            <mat-card-title>Numer Zgłoszenia: {{task.id}}</mat-card-title>
+            <mat-card-subtitle>Nazwa Elektrowni: {{task.namePowerStation}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-form-field>
+            <mat-label>Ubytek Mocy</mat-label>
+            <input matInput type="number" placeholder="podaj moc" [(ngModel)]="task.powerLoss" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Typ zadania</mat-label>
+            <mat-select [(value)]="selectTaskType">
+                <mat-option *ngFor="let symbol of keys(taskType)" [value]="taskType[symbol]">{{symbol}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Zgłoszono</mat-label>
+            <input matInput type="datetime-local" [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Zakończono</mat-label>
+            <input matInput type="datetime-local" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+        <mat-card-actions>
+            <button class="rounded float-right" mat-raised-button color="warn"
+                    (click)="save()">Zapisz
+            </button>
+            <button class="rounded float-right" mat-raised-button color="primary" (click)="goToList()">Cofnij</button>
+        </mat-card-actions>
+    </form>
+</mat-card>
+

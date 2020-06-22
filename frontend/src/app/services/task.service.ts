@@ -24,8 +24,9 @@ export class TaskService {
         return this.http.delete<void>(apiUrl + '/' + id, {headers});
     }
 
-    updateTask(task: CreateTask): Observable<Task> {
-        return this.http.patch<Task>(apiUrl + '/', {task, headers});
+    updateTask(response: CreateTask): Observable<Task> {
+        console.log(response);
+        return this.http.patch<Task>(apiUrl + '/', response, {headers});
     }
 
     getTaskById(id: string): Observable<Task> {

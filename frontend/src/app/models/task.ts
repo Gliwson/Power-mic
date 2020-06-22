@@ -1,3 +1,5 @@
+import {TaskType} from './task-type.enum';
+
 export interface TodoListResponse {
     content: Task[];
     totalElements: number;
@@ -6,21 +8,16 @@ export interface TodoListResponse {
 export interface Task {
     id: number;
     namePowerStation: string;
-    taskType: string;
+    taskType: TaskType;
     powerLoss: number;
     startDate: Date;
     endDate: Date;
 }
 
 export interface CreateTask {
-    id: string;
+    id: number;
     taskType: string;
     powerLoss: number;
     startDate: Date;
     endDate: Date;
-}
-
-export enum TaskType {
-    AWARIA = 'AWARIA',
-    REMONT = 'REMONT',
 }

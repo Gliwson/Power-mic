@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TaskService} from '../../../services/task.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {CreateTask, Task, TaskType} from '../../../models/task';
+import {CreateTask, Task} from '../../../models/task';
 import {Location} from '@angular/common';
+import {TaskType} from '../../../models/task-type.enum';
 
 
 @Component({
@@ -12,51 +13,50 @@ import {Location} from '@angular/common';
     styleUrls: ['./edit-task.component.css']
 })
 export class EditTaskComponent implements OnInit {
-
-    task: Task;
-    createTask: CreateTask;
-    taskType: TaskType;
+    task: Task = {id: 0, namePowerStation: 'name', taskType: TaskType.AWARIA, powerLoss: 0, endDate: new Date(), startDate: new Date()};
+    keys = Object.keys;
+    taskType = TaskType;
+    selectTaskType = TaskType.AWARIA;
     startDate: string;
     endDate: string;
-
-    @Output() dateChange: EventEmitter<Date>;
-    @Input() date: Date;
+    id: number;
 
     constructor(private service: TaskService,
                 private route: ActivatedRoute,
                 private router: Router, private location: Location) {
-        this.date = new Date();
-        this.dateChange = new EventEmitter();
+    }
+
+    ngOnInit(): void {
         this.route.paramMap
             .pipe(switchMap((params: ParamMap) => this.service
                 .getTaskById(params.get('id')))).subscribe(value => {
             this.task = value;
+            this.id = value.id;
+            this.selectTaskType = value.taskType;
             this.startDate = new Date(value.startDate).toISOString().slice(0, 16);
             this.endDate = new Date(value.endDate).toISOString().slice(0, 16);
         });
     }
 
-
-    private toDateString(date: Date): string {
-        return (date.getFullYear().toString() + '-'
-            + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
-            + ('0' + (date.getDate())).slice(-2))
-            + 'T' + date.toTimeString().slice(0, 5);
-    }
-
-    ngOnInit(): void {
-
-    }
-
-    goToMovies() {
+    goToList() {
         this.location.back();
     }
 
     save() {
-
+        const createTask: CreateTask = {
+            id: this.id,
+            powerLoss: this.task.powerLoss,
+            taskType: this.selectTaskType,
+            startDate: this.changeStringToDate(this.startDate),
+            endDate: this.changeStringToDate(this.endDate)
+        };
+        this.service.updateTask(createTask).subscribe();
+        this.location.back();
     }
 
-    conLog(event: string) {
-        console.log(event);
+    changeStringToDate(stringDate: string): Date {
+        const date = stringDate;
+        const actualParsedDate = date ? new Date(date) : new Date();
+        return new Date(actualParsedDate.getTime());
     }
 }
