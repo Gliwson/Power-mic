@@ -1,0 +1,36 @@
+<form class="example-form" *ngIf="task">
+    <mat-form-field class="example-full-width">
+        <mat-label>Ubytek Mocy</mat-label>
+        <input disabled matInput placeholder="Id zgłoszenia" value="{{task.id}}">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Ubytek Mocy</mat-label>
+        <input disabled matInput placeholder="Nazwa Bloku Elektrowni" value="{{task.namePowerStation}}">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Ubytek Mocy</mat-label>
+        <input type="number" matInput placeholder="podaj moc" value="{{task.powerLoss}}">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Typ zadania</mat-label>
+        <mat-select [(value)]="task.taskType">
+            <mat-option>None</mat-option>
+            <mat-option value="AWARIA">AWARIA</mat-option>
+            <mat-option value="REMONT">REMONT</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="datetime-local" [value]="startDate" (change)="conLog($event.target.value)"/>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="datetime-local" [value]="endDate"/>
+    </mat-form-field>
+</form>
+
+<button class="rounded float-right" mat-raised-button color="warn" (click)="save()">Zapisz</button>
+<button class="rounded float-right" mat-raised-button color="primary" >Cofnij</button>

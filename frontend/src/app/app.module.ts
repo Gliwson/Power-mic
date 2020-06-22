@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {Task1Component} from './components/task1/task1.component';
+import {ListComponent} from './components/list/list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -28,7 +28,10 @@ import localePl from '@angular/common/locales/pl';
 import {DemoMaterialModule} from './material-module';
 import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
-import { DialogComponent } from './components/dialog/dialog.component';
+import {DialogComponent} from './components/list/dialogDelete/dialog.component';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {TableComponent} from './components/list/table/table.component';
+import {EditTaskComponent} from './components/list/edit-task/edit-task.component';
 
 registerLocaleData(localePl);
 
@@ -50,13 +53,15 @@ export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
 @NgModule({
     declarations: [
         AppComponent,
-        Task1Component,
+        ListComponent,
         HeaderComponent,
         ProtectedComponent,
         PublicComponent,
         AlertComponent,
         NavigationComponent,
-        DialogComponent
+        DialogComponent,
+        TableComponent,
+        EditTaskComponent
     ],
     imports: [
         BrowserModule,
@@ -80,7 +85,8 @@ export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
         DatePipe,
         Customer,
         {provide: APP_INITIALIZER, useFactory: kcInitializer, multi: true, deps: [KeycloakService]},
-        {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
+        {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
     ],
     bootstrap: [AppComponent]
 })

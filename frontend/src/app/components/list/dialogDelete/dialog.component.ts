@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TaskService} from '../../services/task.service';
+import {TaskService} from '../../../services/task.service';
 
 export interface DialogData {
     id: number;
@@ -19,7 +19,7 @@ export class DialogComponent implements OnInit {
     }
 
     onNoClick(): void {
-        this.todoService.delete(this.data.id).subscribe()
+        this.todoService.deleteTaskById(this.data.id).subscribe()
         this.dialogRef.close();
     }
 
