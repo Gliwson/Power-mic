@@ -9,35 +9,11 @@ import {EditTaskComponent} from './components/list/edit-task/edit-task.component
 
 const routes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: ''},
-    {
-        path: 'list',
-        component: ListComponent,
-        canActivate: [AppAuthGuard],
-        data: {roles: ['user']}
-    },
-    {
-        path: 'editTask/:id',
-        component: EditTaskComponent,
-        canActivate: [AppAuthGuard],
-        data: {roles: ['user']}
-    }
-    ,
-    {
-        path: 'header',
-        component: HeaderComponent,
-        canActivate: [AppAuthGuard],
-        data: {roles: ['user']}
-    },
-    {
-        path: 'public',
-        component: PublicComponent
-    },
-    {
-        path: 'protected',
-        component: ProtectedComponent,
-        canActivate: [AppAuthGuard]
-    }
-    ,
+    {path: 'list', component: ListComponent, canActivate: [AppAuthGuard], data: {roles: ['user']}},
+    {path: 'editTask/:id', component: EditTaskComponent, canActivate: [AppAuthGuard], data: {roles: ['user']}},
+    {path: 'header', component: HeaderComponent, canActivate: [AppAuthGuard], data: {roles: ['user']}},
+    {path: 'public', component: PublicComponent},
+    {path: 'protected', component: ProtectedComponent, canActivate: [AppAuthGuard]},
     {path: '**', redirectTo: ''}
 ];
 
