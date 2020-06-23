@@ -35,6 +35,8 @@ import { PowerStationListComponent } from './components/power-station-list/power
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { OpenCreatePowerStationComponent } from './components/power-station-list/open-create-power-station/open-create-power-station.component';
+
 
 registerLocaleData(localePl);
 
@@ -64,7 +66,8 @@ export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
         DialogComponent,
         TableComponent,
         EditTaskComponent,
-        PowerStationListComponent
+        PowerStationListComponent,
+        OpenCreatePowerStationComponent,
     ],
     imports: [
         BrowserModule,

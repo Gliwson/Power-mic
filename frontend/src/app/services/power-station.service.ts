@@ -22,6 +22,10 @@ export class PowerStationService {
         return this.http.get(apiUrl, {params, headers});
     }
 
+    create(response): Observable<PowerStation> {
+        return this.http.post<PowerStation>(apiUrl, response, {headers});
+    }
+
     deleteTaskById(id: number): Observable<void> {
         return this.http.delete<void>(apiUrl + '/' + id, {headers});
     }
