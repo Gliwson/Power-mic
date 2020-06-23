@@ -1,8 +1,8 @@
 import {DataSource} from '@angular/cdk/table';
-import {Task, TodoListResponse} from './models/task';
+import {Task, TodoListResponse} from '../../models/task';
 import {CollectionViewer} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {TaskService} from './services/task.service';
+import {TaskService} from '../../services/task.service';
 import {catchError, finalize} from 'rxjs/operators';
 
 export class TaskDatasource implements DataSource<Task> {
@@ -29,7 +29,7 @@ export class TaskDatasource implements DataSource<Task> {
         this.countSubject.complete();
     }
 
-    loadTask(pageNumber = 0, pageSize = 10) {
+    loadTask(pageNumber = 0, pageSize = 20) {
         this.loadingSubject.next(true);
         this.todoService.listTodos({page: pageNumber, size: pageSize})
             .pipe(

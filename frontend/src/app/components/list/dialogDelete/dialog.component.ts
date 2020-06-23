@@ -19,7 +19,7 @@ export class DialogComponent implements OnInit {
     }
 
     onNoClick(): void {
-        this.todoService.deleteTaskById(this.data.id).subscribe()
+        this.todoService.deleteTaskById(this.data.id).subscribe();
         this.dialogRef.close();
     }
 

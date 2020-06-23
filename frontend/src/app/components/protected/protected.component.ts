@@ -19,5 +19,5 @@ import {Component} from '@angular/core';
     `]
 })
 export class ProtectedComponent {
-    title: string = 'protected';
+    title = 'protected';
 }

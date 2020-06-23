@@ -19,5 +19,5 @@ import {Component} from '@angular/core';
     `]
 })
 export class PublicComponent {
-    title: string = 'public';
+    title = 'public';
 }
