@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CreateTask} from '../models/task';
 import {environment} from '../../environments/environment';
-import {PowerStation} from '../components/power-station-list/power-station-list-datasource';
+import {PowerStation} from '../models/powerStations';
+
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 const apiUrl = environment.apiUrl + '/powerstations';

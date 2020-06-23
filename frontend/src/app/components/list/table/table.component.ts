@@ -7,7 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {TaskService} from '../../../services/task.service';
 import {tap} from 'rxjs/operators';
-import {TaskDatasource} from '../../../task.datasource';
+import {TaskDatasource} from '../task.datasource';
 
 @Component({
     selector: 'app-table',
