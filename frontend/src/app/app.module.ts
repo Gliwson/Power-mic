@@ -11,7 +11,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {ProtectedComponent} from './components/protected/protected.component';
 import {PublicComponent} from './components/public/public.component';
-import {HeaderComponent} from './components/header/header.component';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {DatePipe, registerLocaleData} from '@angular/common';
 import {environment} from '../environments/environment';
@@ -32,6 +31,10 @@ import {DialogComponent} from './components/list/dialogDelete/dialog.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {TableComponent} from './components/list/table/table.component';
 import {EditTaskComponent} from './components/list/edit-task/edit-task.component';
+import { PowerStationListComponent } from './components/power-station-list/power-station-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 registerLocaleData(localePl);
 
@@ -54,14 +57,14 @@ export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
     declarations: [
         AppComponent,
         ListComponent,
-        HeaderComponent,
         ProtectedComponent,
         PublicComponent,
         AlertComponent,
         NavigationComponent,
         DialogComponent,
         TableComponent,
-        EditTaskComponent
+        EditTaskComponent,
+        PowerStationListComponent
     ],
     imports: [
         BrowserModule,
@@ -79,7 +82,10 @@ export function kcInitializer(keycloak: KeycloakService): () => Promise<any> {
         ModalModule.forRoot(),
         BsDropdownModule.forRoot(),
         DemoMaterialModule,
-        LayoutModule
+        LayoutModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
     ],
     providers: [
         DatePipe,
