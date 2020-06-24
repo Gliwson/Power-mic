@@ -17,6 +17,7 @@ export class PowerStationListComponent implements AfterViewInit, OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     @ViewChild('child1') createModel: OpenCreatePowerStationComponent;
+    @ViewChild('child2') saveModel: OpenCreatePowerStationComponent;
     dataSource: PowerStationListDataSource;
     data: MatTableDataSource<PowerStation>;
     displayedColumns = [];

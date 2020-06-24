@@ -1,3 +1,7 @@
 .full-width-table {
   width: 100%;
 }
+.icon-display {
+  transform: scale(2);
+  margin: 10px;
+}

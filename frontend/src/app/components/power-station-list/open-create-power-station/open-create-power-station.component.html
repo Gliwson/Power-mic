@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="orderForm">
-            <div class="form-group">
+            <div class="form-group" *ngIf="!create">
                 <label for="id">Id Elektrowni</label>
                 <input type="number" formControlName="id" class="form-control" id="id">
             </div>

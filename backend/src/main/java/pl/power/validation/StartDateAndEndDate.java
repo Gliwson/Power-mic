@@ -1,7 +1,5 @@
 package pl.power.validation;
 
-import pl.power.validation.StartDateIsGreaterThanEndDate;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.ElementType;

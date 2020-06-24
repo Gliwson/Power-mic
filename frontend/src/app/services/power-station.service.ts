@@ -22,7 +22,11 @@ export class PowerStationService {
         return this.http.get(apiUrl, {params, headers});
     }
 
-    create(response): Observable<PowerStation> {
+    update(response, id): Observable<PowerStation> {
+        return this.http.patch<PowerStation>(apiUrl + '/' + id, response, {headers});
+    }
+
+    save(response): Observable<PowerStation> {
         return this.http.post<PowerStation>(apiUrl, response, {headers});
     }
 

@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Data
 @StartDateAndEndDate
-public class CreateTaskDTO implements DTOInterface{
+public class CreateTaskDTO implements DTOInterface {
 
     @NotNull
     private Long id;
@@ -18,7 +18,7 @@ public class CreateTaskDTO implements DTOInterface{
     @NotNull
     private TaskType taskType;
 
-    @NotNull
+    @NotNull(message = "The power loss field is empty")
     private BigDecimal powerLoss;
 
     @NotNull
