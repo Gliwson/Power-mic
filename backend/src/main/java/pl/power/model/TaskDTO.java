@@ -5,11 +5,12 @@ import pl.power.domain.entity.enums.TaskType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
-public class TaskDTO implements DTOInterface{
+public class TaskDTO implements DTOInterface , Serializable {
 
     private Long id;
 
