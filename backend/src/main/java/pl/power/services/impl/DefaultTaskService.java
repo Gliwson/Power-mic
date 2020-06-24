@@ -1,6 +1,10 @@
 package pl.power.services.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,9 +25,11 @@ import pl.power.services.exception.TaskNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@CacheConfig(cacheNames = "tasks")
 public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> implements TaskService {
 
     private final TaskRepository taskRepository;
@@ -40,6 +46,7 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
+    @CacheEvict(cacheNames = "tasks", allEntries = true)
     @Transactional
     public Long add(CreateTaskDTO createTaskDTO) {
         Task task = modelMapper.map(createTaskDTO, Task.class);
@@ -52,6 +59,7 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
+    @Cacheable
     public Long countEventsByIdPowerStation(Long id, String taskType) {
         if (id == null) {
             throw new IdIsNullException();
@@ -65,6 +73,7 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
+    @CachePut(key = "#createTaskDTO.id")
     @Transactional
     public TaskDTO update(CreateTaskDTO createTaskDTO) {
         Task task = taskRepository.findById(createTaskDTO.getId()).orElseThrow(() -> new TaskNotFoundException(createTaskDTO.getId()));
@@ -76,16 +85,35 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
+    @Cacheable
     public PairPageable<TaskDTO> findAll(Pageable pageable) {
         Page<Task> tasksPage = taskRepository.findAll(pageable);
         long totalElements = tasksPage.getTotalElements();
         List<Task> tasks = tasksPage.toList();
-        List<Long> longList = tasks.stream()
+        Set<Long> longList = tasks.stream()
                 .map(value -> value.getPowerStation().getId())
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         powerStationRepository.findAllById(longList);
         List<TaskDTO> taskDTOS = mapper.toDTOs(tasks);
         return new PairPageable<>(totalElements, taskDTOS);
     }
 
+    @Override
+    @Cacheable
+    public TaskDTO findById(Long id) {
+        return super.findById(id);
+    }
+
+    @Override
+    @CachePut(key = "#id")
+    public void delete(Long id) {
+        super.delete(id);
+    }
+
+    @Override
+
+    @CacheEvict(cacheNames = "tasks", allEntries = true)
+    public Long save(TaskDTO dto) {
+        return super.save(dto);
+    }
 }

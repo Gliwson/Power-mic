@@ -2,6 +2,8 @@ package pl.power.services.impl;
 
 import javafx.util.Pair;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.power.calculator.DateCalculator;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @Service
+@CacheConfig(cacheNames = "powerStations")
 public class DefaultPowerStationService extends CrudAbstractService<PowerStation, PowerStationDTO> implements PowerStationService {
 
     private final PowerStationRepository powerStationRepository;
@@ -44,6 +47,7 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
     }
 
     @Override
+    @CachePut(key = "#id")
     @Transactional
     public PowerStationDTO update(Long id, PowerStationDTO powerStationDTO) {
         if (id == null) {
@@ -58,6 +62,7 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
     }
 
     @Override
+    @Cacheable
     public Long countEventsByIdPowerStation(Long id, String taskType) {
         if (id == null) {
             throw new IdIsNullException();
@@ -72,6 +77,7 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
     }
 
     @Override
+    @Cacheable
     public Map<Long, BigDecimal> getDateAndPower(String date) {
         DateCalculator dateCalculator = new DateCalculator(date);
         return powerStationRepository.findAllOneSelect().stream()
@@ -80,6 +86,8 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
     }
 
     @Override
+    @Caching(evict = {@CacheEvict(cacheNames = "powerStations", allEntries = true),
+            @CacheEvict(cacheNames = "tasks", allEntries = true)})
     @Transactional
     public void addAll() {
         xmlService.getLinkToList().forEach(remitUMM -> {
@@ -109,4 +117,28 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
         });
     }
 
+    @Override
+    @Cacheable
+    public PairPageable<PowerStationDTO> findAll(Pageable pageable) {
+        return super.findAll(pageable);
+    }
+
+    @Override
+    @Cacheable
+    public PowerStationDTO findById(Long id) {
+        return super.findById(id);
+    }
+
+    @Override
+    @Caching(evict = {@CacheEvict(cacheNames = "powerStations", allEntries = true),
+            @CacheEvict(cacheNames = "tasks", allEntries = true)})
+    public void delete(Long id) {
+        super.delete(id);
+    }
+
+    @Override
+    @CacheEvict(cacheNames = "powerStations", allEntries = true)
+    public Long save(PowerStationDTO dto) {
+        return super.save(dto);
+    }
 }

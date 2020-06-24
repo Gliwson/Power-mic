@@ -1,4 +1,7 @@
 <div class="mat-elevation-z8">
+    <button class="icon-display rounded float-right" color="warn" (click)="saveModel.openCreateModal()" mat-icon-button>
+        <mat-icon aria-label="Edit" aria-hidden="false">fiber_new</mat-icon>
+    </button>
     <mat-form-field class="rounded float-left">
         <mat-label>Szukaj</mat-label>
         <input matInput [(ngModel)]="dataSource.text" (keyup)="dataSource.applyFilter()" placeholder="Szukaj">
@@ -27,7 +30,7 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row">
                 <div class="example-button-row">
-                    <button color="warn" (click)="createModel.openCreateModal(row)" mat-icon-button>
+                    <button color="warn" (click)="createModel.openUpdateModal(row)" mat-icon-button>
                         <mat-icon aria-label="Edit" class="example-icon" aria-hidden="false">edit</mat-icon>
                     </button>
                 </div>
@@ -44,5 +47,6 @@
                    [pageSizeOptions]="[20, 50, 100, 250]">
     </mat-paginator>
 </div>
-<app-open-create-power-station #child1 [isAdmin]="isAdmin" (clickButton)="refresh()"></app-open-create-power-station>
+<app-open-create-power-station #child1 [isAdmin]="isAdmin" [create]="false" (clickButton)="refresh()"></app-open-create-power-station>
+<app-open-create-power-station #child2 [isAdmin]="isAdmin" [create]="true" (clickButton)="refresh()"></app-open-create-power-station>
 

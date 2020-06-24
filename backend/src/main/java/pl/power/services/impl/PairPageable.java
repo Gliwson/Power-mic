@@ -1,8 +1,9 @@
 package pl.power.services.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PairPageable<D> {
+public class PairPageable<D> implements Serializable {
     private Long totalElements;
     private List<D> elements;
 
