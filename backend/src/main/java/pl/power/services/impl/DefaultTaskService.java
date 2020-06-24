@@ -21,6 +21,7 @@ import pl.power.services.exception.TaskNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,9 +81,9 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
         Page<Task> tasksPage = taskRepository.findAll(pageable);
         long totalElements = tasksPage.getTotalElements();
         List<Task> tasks = tasksPage.toList();
-        List<Long> longList = tasks.stream()
+        Set<Long> longList = tasks.stream()
                 .map(value -> value.getPowerStation().getId())
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         powerStationRepository.findAllById(longList);
         List<TaskDTO> taskDTOS = mapper.toDTOs(tasks);
         return new PairPageable<>(totalElements, taskDTOS);
