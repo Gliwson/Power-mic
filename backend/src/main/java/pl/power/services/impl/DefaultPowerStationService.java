@@ -47,7 +47,8 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
     }
 
     @Override
-    @CachePut(key = "#id")
+    @Caching(evict = {@CacheEvict(cacheNames = "powerStations", allEntries = true),
+            @CacheEvict(cacheNames = "tasks", allEntries = true)})
     @Transactional
     public PowerStationDTO update(Long id, PowerStationDTO powerStationDTO) {
         if (id == null) {
