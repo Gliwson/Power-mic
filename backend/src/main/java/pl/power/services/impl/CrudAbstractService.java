@@ -1,6 +1,5 @@
 package pl.power.services.impl;
 
-import javafx.util.Pair;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

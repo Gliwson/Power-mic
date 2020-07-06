@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>frontend</artifactId>
     <name>frontend</name>
-    <packaging>war</packaging>
 
     <parent>
         <groupId>pl.gliwson</groupId>
@@ -25,7 +24,6 @@
                 <version>1.9.1</version>
                 <configuration>
                     <nodeVersion>v14.4.0</nodeVersion>
-<!--                    <workingDirectory>src/main/resources</workingDirectory>-->
                 </configuration>
 
                 <executions>
@@ -57,11 +55,5 @@
                 </executions>
             </plugin>
         </plugins>
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>target/resources</directory>-->
-<!--                <targetPath>static</targetPath>-->
-<!--            </resource>-->
-<!--        </resources>-->
     </build>
 </project>

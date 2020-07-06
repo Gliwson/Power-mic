@@ -19,5 +19,6 @@ const keycloakOptions: KeycloakOptions = {
 
 export const environment = {
     production: true,
-    keycloakOptions
+    keycloakOptions,
+    apiUrl: '/power/api'
 };

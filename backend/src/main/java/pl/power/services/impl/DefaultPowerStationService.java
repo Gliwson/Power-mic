@@ -1,12 +1,12 @@
 package pl.power.services.impl;
 
-import javafx.util.Pair;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.power.calculator.DateCalculator;
+import pl.power.calculator.PairCalculator;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
 import pl.power.domain.entity.enums.TaskType;
@@ -83,7 +83,7 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
         DateCalculator dateCalculator = new DateCalculator(date);
         return powerStationRepository.findAllOneSelect().stream()
                 .map(dateCalculator::subtractPowerLossFromPower)
-                .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+                .collect(Collectors.toMap(PairCalculator::getKey, PairCalculator::getValue));
     }
 
     @Override
