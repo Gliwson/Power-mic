@@ -73,7 +73,7 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
-    @CachePut(key = "#createTaskDTO.id")
+    @CacheEvict(cacheNames = "tasks", allEntries = true)
     @Transactional
     public TaskDTO update(CreateTaskDTO createTaskDTO) {
         Task task = taskRepository.findById(createTaskDTO.getId()).orElseThrow(() -> new TaskNotFoundException(createTaskDTO.getId()));
@@ -105,7 +105,7 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
-    @CachePut(key = "#id")
+    @CacheEvict(cacheNames = "tasks", allEntries = true)
     public void delete(Long id) {
         super.delete(id);
     }

@@ -1,6 +1,5 @@
 package pl.power.calculator;
 
-import javafx.util.Pair;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
 
@@ -19,11 +18,11 @@ public class DateCalculator {
         this.dateTime = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
     }
 
-    public Pair<Long, BigDecimal> subtractPowerLossFromPower(PowerStation powerStation) {
+    public PairCalculator<Long, BigDecimal> subtractPowerLossFromPower(PowerStation powerStation) {
         BigDecimal bigDecimal = powerStation.getPower().multiply(new BigDecimal(24));
         Long id = powerStation.getId();
 
-        Pair<Long, BigDecimal> decimalPair = new Pair<>(id, bigDecimal);
+        PairCalculator<Long, BigDecimal> decimalPair = new PairCalculator<>(id, bigDecimal);
 
         for (Task t : powerStation.getTasks()) {
             LocalTime min = null;
@@ -56,7 +55,7 @@ public class DateCalculator {
             }
             BigDecimal result = decimalPair.getValue().subtract(t.getPowerLoss().multiply(hours));
             result = result.setScale(2, RoundingMode.HALF_UP);
-            decimalPair = new Pair<>(id, result);
+            decimalPair = new PairCalculator<>(id, result);
         }
         return decimalPair;
     }
