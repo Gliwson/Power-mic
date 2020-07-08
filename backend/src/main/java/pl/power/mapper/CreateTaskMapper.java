@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import pl.power.domain.entity.Task;
 import pl.power.model.CreateTaskDTO;
-import pl.power.model.TaskDTO;
 import pl.power.services.exception.TaskDTONotFoundException;
 import pl.power.services.exception.TaskNotFoundException;
 

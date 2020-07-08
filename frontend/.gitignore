@@ -48,3 +48,4 @@ Thumbs.db
 /node/node_modules/
 /src/main/resources/node/
 /src/main/
+/frontend.iml

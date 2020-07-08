@@ -14,26 +14,26 @@ import org.springframework.context.annotation.Bean;
 import pl.gliwson.auth.config.KeycloakServerProperties;
 
 @SpringBootApplication(exclude = LiquibaseAutoConfiguration.class)
-@EnableConfigurationProperties({ KeycloakServerProperties.class })
+@EnableConfigurationProperties({KeycloakServerProperties.class})
 public class AuthorizationServerApp {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AuthorizationServerApp.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthorizationServerApp.class);
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(AuthorizationServerApp.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AuthorizationServerApp.class, args);
+    }
 
-	@Bean
-	ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(ServerProperties serverProperties,
-			KeycloakServerProperties keycloakServerProperties) {
+    @Bean
+    ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(ServerProperties serverProperties,
+                                                                               KeycloakServerProperties keycloakServerProperties) {
 
-		return (evt) -> {
+        return (evt) -> {
 
-			Integer port = serverProperties.getPort();
-			String keycloakContextPath = keycloakServerProperties.getContextPath();
+            Integer port = serverProperties.getPort();
+            String keycloakContextPath = keycloakServerProperties.getContextPath();
 
-			LOG.info("Embedded Keycloak started: http://localhost:{}{} to use keycloak", port, keycloakContextPath);
-		};
-	}
+            LOG.info("Embedded Keycloak started: http://localhost:{}{} to use keycloak", port, keycloakContextPath);
+        };
+    }
 
 }

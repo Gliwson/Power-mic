@@ -41,7 +41,7 @@ public class CustomerServiceImpl {
         sb.append("/admin/realms/").append(keycloakRealm).append("/users");
         sb.append("?username=").append(username);
 
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
         CustomerInfo[] users = restTemplate
                 .exchange(URI.create(sb.toString()), HttpMethod.GET, entity, CustomerInfo[].class).getBody();

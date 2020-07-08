@@ -3,3 +3,6 @@
 /oauth-authorization-server/target/
 /logs/
 /.idea/
+/powerTest.iml
+/target/sonar/report-task.txt
+/target/sonar/.sonar_lock

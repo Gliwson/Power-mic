@@ -39,7 +39,6 @@ public class EmbeddedKeycloakApplication extends KeycloakApplication {
     private void createMasterRealmAdminUser() {
 
         KeycloakSession session = getSessionFactory().create();
-
         ApplianceBootstrap applianceBootstrap = new ApplianceBootstrap(session);
 
         KeycloakServerProperties.AdminUser admin = keycloakServerProperties.getAdminUser();

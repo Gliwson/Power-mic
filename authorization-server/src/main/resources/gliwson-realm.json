@@ -648,7 +648,10 @@
       "secret": "**********",
       "redirectUris": [
         "http://localhoat:8080/*",
-        "http://localhost:4200/*"
+        "http://localhost:4200/*",
+        "http://backend:8080/*",
+        "http://frontend:4200/*",
+        "*"
       ],
       "webOrigins": [
         "*"

@@ -1,6 +1,5 @@
 package pl.power.services.impl;
 
-import javafx.util.Pair;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,7 +24,7 @@ public abstract class CrudAbstractService<E extends EntityInterface, D extends D
     public PairPageable<D> findAll(Pageable pageable) {
         Page<E> allEntities = jpaRepository.findAll(pageable);
         List<E> content = allEntities.getContent();
-        return new PairPageable<D>(allEntities.getTotalElements(), mapper.toDTOs(content));
+        return new PairPageable<>(allEntities.getTotalElements(), mapper.toDTOs(content));
     }
 
     public D findById(Long id) {

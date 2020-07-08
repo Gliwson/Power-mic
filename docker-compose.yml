@@ -1,0 +1,67 @@
+version: '3.7'
+
+networks:
+  mynetwork:
+
+services:
+
+  auth:
+    build:
+      context: ./authorization-server
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - mynetwork
+    depends_on:
+      - frontend
+
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_REDIS_HOST: redis
+      keycloak_auth-server-url: http://auth:8083/auth
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+    depends_on:
+      - redis
+      - database
+      - frontend
+
+
+  database:
+    container_name: 'database'
+    image: 'mysql:latest'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=powerStation
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+
+  redis:
+    container_name: 'redis'
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - mynetwork
