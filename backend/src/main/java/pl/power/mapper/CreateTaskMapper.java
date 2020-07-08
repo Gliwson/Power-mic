@@ -10,6 +10,7 @@ import pl.power.services.exception.TaskNotFoundException;
 @Component
 public class CreateTaskMapper implements MapperInterface<Task, CreateTaskDTO> {
 
+
     private final ModelMapper mapper;
 
     public CreateTaskMapper(ModelMapper mapper) {
