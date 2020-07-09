@@ -1,7 +1,7 @@
 package pl.power.model;
 
 import lombok.Data;
-import pl.power.domain.entity.enums.TaskType;
+import pl.power.constant.TaskType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

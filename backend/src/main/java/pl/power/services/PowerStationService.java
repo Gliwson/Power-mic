@@ -2,7 +2,7 @@ package pl.power.services;
 
 import org.springframework.data.domain.Pageable;
 import pl.power.model.PowerStationDTO;
-import pl.power.services.impl.PairPageable;
+import pl.power.services.serviceImpl.PairPageable;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;

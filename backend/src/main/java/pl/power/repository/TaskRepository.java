@@ -1,4 +1,4 @@
-package pl.power.domain.repository;
+package pl.power.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

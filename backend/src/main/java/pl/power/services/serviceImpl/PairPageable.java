@@ -1,4 +1,4 @@
-package pl.power.services.impl;
+package pl.power.services.serviceImpl;
 
 import java.io.Serializable;
 import java.util.List;

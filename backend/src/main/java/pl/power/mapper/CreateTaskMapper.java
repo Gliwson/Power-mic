@@ -3,9 +3,10 @@ package pl.power.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import pl.power.domain.entity.Task;
+import pl.power.exception.TaskDTONotFoundException;
+import pl.power.exception.TaskNotFoundException;
 import pl.power.model.CreateTaskDTO;
-import pl.power.services.exception.TaskDTONotFoundException;
-import pl.power.services.exception.TaskNotFoundException;
+
 
 @Component
 public class CreateTaskMapper implements MapperInterface<Task, CreateTaskDTO> {

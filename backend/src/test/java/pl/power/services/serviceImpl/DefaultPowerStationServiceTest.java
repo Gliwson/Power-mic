@@ -1,4 +1,4 @@
-package pl.power.services.impl;
+package pl.power.services.serviceImpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,10 +9,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
-import pl.power.domain.repository.PowerStationRepository;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.NotFoundIDException;
+import pl.power.constant.TaskType;
+import pl.power.repository.PowerStationRepository;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.NotFoundIDException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

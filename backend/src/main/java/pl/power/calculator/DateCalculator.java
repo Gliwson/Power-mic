@@ -23,7 +23,6 @@ public class DateCalculator {
         Long id = powerStation.getId();
 
         PairCalculator<Long, BigDecimal> decimalPair = new PairCalculator<>(id, bigDecimal);
-
         for (Task t : powerStation.getTasks()) {
             LocalTime min = null;
             LocalTime max = null;
@@ -47,7 +46,7 @@ public class DateCalculator {
                     max = LocalTime.of(end.getHour(), end.getMinute());
                 }
 
-                long second = max.toSecondOfDay() - min.toSecondOfDay();
+                long second = (max != null ? max.toSecondOfDay() : 0) - (min != null ? min.toSecondOfDay() : 0);
 
                 BigDecimal time = new BigDecimal(second);
                 BigDecimal hour = new BigDecimal("3600");

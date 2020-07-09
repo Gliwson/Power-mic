@@ -1,4 +1,4 @@
-package pl.power.services.impl;
+package pl.power.services.serviceImpl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.power.domain.entity.EntityInterface;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.DTOInterface;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.NotFoundIDException;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.NotFoundIDException;
 
 import java.util.List;
 

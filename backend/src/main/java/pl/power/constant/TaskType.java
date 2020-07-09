@@ -1,4 +1,4 @@
-package pl.power.domain.entity.enums;
+package pl.power.constant;
 
 public enum TaskType {
     AWARIA, REMONT;

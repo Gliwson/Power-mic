@@ -1,4 +1,4 @@
-package pl.power.services.impl;
+package pl.power.services.serviceImpl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;

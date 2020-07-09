@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import pl.power.domain.entity.PowerStation;
 import pl.power.model.PowerStationDTO;
-import pl.power.services.exception.PowerStationDTONotFoundException;
-import pl.power.services.exception.PowerStationNotFoundException;
+import pl.power.exception.PowerStationDTONotFoundException;
+import pl.power.exception.PowerStationNotFoundException;
 
 @Component
 public class PowerStationMapper implements MapperInterface<PowerStation, PowerStationDTO> {

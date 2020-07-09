@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
 import pl.power.services.TaskService;
-import pl.power.services.impl.PairPageable;
+import pl.power.services.serviceImpl.PairPageable;
 
 import javax.validation.Valid;
 

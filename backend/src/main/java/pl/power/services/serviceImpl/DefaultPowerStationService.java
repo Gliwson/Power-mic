@@ -1,4 +1,4 @@
-package pl.power.services.impl;
+package pl.power.services.serviceImpl;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.annotation.*;
@@ -9,17 +9,17 @@ import pl.power.calculator.DateCalculator;
 import pl.power.calculator.PairCalculator;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
-import pl.power.domain.repository.PowerStationRepository;
-import pl.power.domain.repository.TaskRepository;
+import pl.power.constant.TaskType;
+import pl.power.repository.PowerStationRepository;
+import pl.power.repository.TaskRepository;
 import pl.power.domain.xmlDomain.Capacity;
 import pl.power.domain.xmlDomain.Event;
 import pl.power.domain.xmlDomain.NameAndEic;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.PowerStationDTO;
 import pl.power.services.PowerStationService;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.PowerStationNotFoundException;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.PowerStationNotFoundException;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;

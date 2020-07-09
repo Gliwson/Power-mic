@@ -1,9 +1,8 @@
-package pl.power.services.impl;
+package pl.power.services.serviceImpl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,16 +10,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
-import pl.power.domain.repository.PowerStationRepository;
-import pl.power.domain.repository.TaskRepository;
+import pl.power.constant.TaskType;
+import pl.power.repository.PowerStationRepository;
+import pl.power.repository.TaskRepository;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.PowerStationNotFoundException;
+import pl.power.exception.TaskNotFoundException;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
 import pl.power.services.TaskService;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.PowerStationNotFoundException;
-import pl.power.services.exception.TaskNotFoundException;
 
 import javax.transaction.Transactional;
 import java.util.List;
