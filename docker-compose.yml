@@ -1,41 +1,66 @@
 version: '3.7'
 
-networks:
-  mynetwork:
+volumes:
+  postgres_data:
+    driver: local
 
 services:
 
-  auth:
-    build:
-      context: ./authorization-server
-      dockerfile: Dockerfile
-    ports:
-      - "8083:8083"
-    networks:
-      - mynetwork
-    depends_on:
-      - frontend
-
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: "root"
-      SPRING_DATASOURCE_PASSWORD: "root"
-      SPRING_REDIS_HOST: redis
-      keycloak_auth-server-url: http://auth:8083/auth
-    ports:
-      - "8080:8080"
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
     networks:
-      - mynetwork
+      mynet:
+        aliases:
+          - postgres
+  keycloak:
+    image: jboss/keycloak
+    extra_hosts:
+      - host
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_IMPORT_REALM: /keycloakConfig/gliwson-realm.json
+    ports:
+      - 8080:8080
+    networks:
+      mynet:
+        aliases:
+          - keycloak
     depends_on:
-      - redis
-      - database
-      - frontend
+      - postgres
 
+#  backend:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
+#      SPRING_DATASOURCE_USERNAME: "root"
+#      SPRING_DATASOURCE_PASSWORD: "root"
+#      SPRING_REDIS_HOST: redis
+#      KEYCLOAK_AUTH-SERVER-URL: http://keycloak:8080/auth
+#    ports:
+#      - "8085:8085"
+#    networks:
+#      mynet:
+#        aliases:
+#          - backend
+#    depends_on:
+#      - redis
+#      - database
+#      - frontend
 
   database:
     container_name: 'database'
@@ -47,7 +72,9 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - mynetwork
+      mynet:
+        aliases:
+          - database
 
   redis:
     container_name: 'redis'
@@ -55,7 +82,9 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - mynetwork
+      mynet:
+        aliases:
+          - redis
 
   frontend:
     build:
@@ -64,4 +93,9 @@ services:
     ports:
       - "4200:4200"
     networks:
-      - mynetwork
+      mynet:
+        aliases:
+          - frontend
+
+networks:
+  mynet:
