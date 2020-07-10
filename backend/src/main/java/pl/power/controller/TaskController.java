@@ -23,7 +23,6 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-
     @GetMapping
     public Page<TaskDTO> getTasks(@RequestParam(name = "page", defaultValue = "0") int page,
                                   @RequestParam(name = "size", defaultValue = "20") int size

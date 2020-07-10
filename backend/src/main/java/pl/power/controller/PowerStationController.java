@@ -24,7 +24,6 @@ public class PowerStationController {
         this.powerStationService = powerStationService;
     }
 
-
     @GetMapping
     public Page<PowerStationDTO> getPowerStations(@RequestParam(name = "page", defaultValue = "0") int page,
                                                   @RequestParam(name = "size", defaultValue = "20") int size) {

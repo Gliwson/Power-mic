@@ -4,4 +4,6 @@ public class StartDateIsAfterDateEndException extends RuntimeException {
     public StartDateIsAfterDateEndException(String message) {
         super(message);
     }
+    public StartDateIsAfterDateEndException() {
+    }
 }

@@ -3,18 +3,18 @@ import {KeycloakConfig, KeycloakInitOptions, KeycloakOptions} from 'keycloak-ang
 const keycloakConfig: KeycloakConfig = {
     url: 'http://localhost:8080/auth',
     realm: 'demo',
-    clientId: 'my-app'
+    clientId: 'my-app',
 };
 
 const keycloakInitOptions: KeycloakInitOptions = {
     onLoad: 'check-sso',
-    checkLoginIframe: false
+    checkLoginIframe: false,
 };
 
 const keycloakOptions: KeycloakOptions = {
     config: keycloakConfig,
     initOptions: keycloakInitOptions,
-    enableBearerInterceptor: true
+    enableBearerInterceptor: true,
 };
 
 export const environment = {

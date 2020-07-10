@@ -20,8 +20,6 @@ services:
           - postgres
   keycloak:
     image: jboss/keycloak
-    extra_hosts:
-      - host
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
