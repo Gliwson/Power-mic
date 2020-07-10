@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.power.model.PowerStationDTO;
 import pl.power.services.PowerStationService;
-import pl.power.services.impl.PairPageable;
+import pl.power.services.serviceImpl.PairPageable;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -23,7 +23,6 @@ public class PowerStationController {
     public PowerStationController(PowerStationService powerStationService) {
         this.powerStationService = powerStationService;
     }
-
 
     @GetMapping
     public Page<PowerStationDTO> getPowerStations(@RequestParam(name = "page", defaultValue = "0") int page,

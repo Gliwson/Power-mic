@@ -1,32 +1,64 @@
-version: '3'
+version: '3.7'
+
+volumes:
+  postgres_data:
+    driver: local
 
 services:
 
-  auth:
-    build:
-      context: ./authorization-server
-      dockerfile: Dockerfile
-    ports:
-      - "8083:8083"
-    depends_on:
-      - backend
-      - frontend
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: "root"
-      SPRING_DATASOURCE_PASSWORD: "root"
-      SPRING_REDIS_HOST: redis
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    networks:
+      mynet:
+        aliases:
+          - postgres
+  keycloak:
+    image: jboss/keycloak
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_IMPORT_REALM: /keycloakConfig/gliwson-realm.json
     ports:
-      - "8080:8080"
+      - 8080:8080
+    networks:
+      mynet:
+        aliases:
+          - keycloak
     depends_on:
-      - redis
-      - database
-      - frontend
+      - postgres
+
+#  backend:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
+#      SPRING_DATASOURCE_USERNAME: "root"
+#      SPRING_DATASOURCE_PASSWORD: "root"
+#      SPRING_REDIS_HOST: redis
+#      KEYCLOAK_AUTH-SERVER-URL: http://keycloak:8080/auth
+#    ports:
+#      - "8085:8085"
+#    networks:
+#      mynet:
+#        aliases:
+#          - backend
+#    depends_on:
+#      - redis
+#      - database
+#      - frontend
 
   database:
     container_name: 'database'
@@ -37,12 +69,20 @@ services:
       - MYSQL_DATABASE=powerStation
     ports:
       - "3306:3306"
+    networks:
+      mynet:
+        aliases:
+          - database
 
   redis:
     container_name: 'redis'
     image: redis
     ports:
       - "6379:6379"
+    networks:
+      mynet:
+        aliases:
+          - redis
 
   frontend:
     build:
@@ -50,5 +90,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4200:4200"
+    networks:
+      mynet:
+        aliases:
+          - frontend
 
-
+networks:
+  mynet:
