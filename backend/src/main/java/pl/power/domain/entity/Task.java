@@ -3,7 +3,7 @@ package pl.power.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import pl.power.domain.entity.enums.TaskType;
+import pl.power.constant.TaskType;
 
 import javax.persistence.*;
 import java.io.Serializable;

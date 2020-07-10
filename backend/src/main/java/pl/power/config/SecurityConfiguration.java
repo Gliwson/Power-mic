@@ -49,7 +49,6 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        log.info("Spring Authorization");
         http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "*").permitAll().anyRequest().permitAll();
     }
 

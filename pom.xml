@@ -13,7 +13,6 @@
     <modules>
         <module>frontend</module>
         <module>backend</module>
-        <module>authorization-server</module>
     </modules>
 
 </project>

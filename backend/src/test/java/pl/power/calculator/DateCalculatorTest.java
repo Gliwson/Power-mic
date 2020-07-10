@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
+import pl.power.constant.TaskType;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
