@@ -1,64 +1,61 @@
-version: '3.7'
+version: '3'
 
-volumes:
-  postgres_data:
-    driver: local
+#volumes:
+#  mysql_data:
+#    driver: local
 
 services:
 
-  postgres:
-    image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
-    networks:
-      mynet:
-        aliases:
-          - postgres
+#  mysql:
+#    image: mysql:5.7
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: keycloak
+#      MYSQL_USER: keycloak
+#      MYSQL_PASSWORD: password
+#    networks:
+#      mynet:
+
   keycloak:
-    image: jboss/keycloak
+    image: jboss/keycloak:10.0.2
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      DB_VENDOR: POSTGRES
-      DB_ADDR: postgres
-      DB_DATABASE: keycloak
-      DB_USER: keycloak
-      DB_SCHEMA: public
-      DB_PASSWORD: password
       KEYCLOAK_IMPORT_REALM: /keycloakConfig/gliwson-realm.json
+#      DB_VENDOR: MYSQL
+#      DB_ADDR: mysql
+#      DB_DATABASE: keycloak
+#      DB_USER: keycloak
+#      DB_PASSWORD: password
     ports:
       - 8080:8080
     networks:
       mynet:
-        aliases:
-          - keycloak
-    depends_on:
-      - postgres
-
-#  backend:
-#    build:
-#      context: ./backend
-#      dockerfile: Dockerfile
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
-#      SPRING_DATASOURCE_USERNAME: "root"
-#      SPRING_DATASOURCE_PASSWORD: "root"
-#      SPRING_REDIS_HOST: redis
-#      KEYCLOAK_AUTH-SERVER-URL: http://keycloak:8080/auth
-#    ports:
-#      - "8085:8085"
-#    networks:
-#      mynet:
-#        aliases:
-#          - backend
 #    depends_on:
-#      - redis
-#      - database
-#      - frontend
+#      - mysql
+
+  #  backend:
+  #    build:
+  #      context: ./backend
+  #      dockerfile: Dockerfile
+  #    environment:
+  #      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
+  #      SPRING_DATASOURCE_USERNAME: "root"
+  #      SPRING_DATASOURCE_PASSWORD: "root"
+  #      SPRING_REDIS_HOST: redis
+  #      KEYCLOAK_AUTH-SERVER-URL: http://keycloak:8080/auth
+  #    ports:
+  #      - "8085:8085"
+  #    networks:
+  #      mynet:
+  #        aliases:
+  #          - backend
+  #    depends_on:
+  #      - redis
+  #      - database
+  #      - frontend
 
   database:
     container_name: 'database'
@@ -71,8 +68,6 @@ services:
       - "3306:3306"
     networks:
       mynet:
-        aliases:
-          - database
 
   redis:
     container_name: 'redis'
@@ -81,19 +76,15 @@ services:
       - "6379:6379"
     networks:
       mynet:
-        aliases:
-          - redis
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "4200:4200"
-    networks:
-      mynet:
-        aliases:
-          - frontend
+#  frontend:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#    ports:
+#      - "4200:4200"
+#    networks:
+#      mynet:
 
 networks:
   mynet:

@@ -6,7 +6,7 @@ import {PowerStation} from '../models/powerStations';
 
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
-const apiUrl ='http://localhost:8085/power/api' + '/powerstations';
+const apiUrl = 'http://localhost:8085/power/api' + '/powerstations';
 
 @Injectable({
     providedIn: 'root'

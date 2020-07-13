@@ -11,7 +11,6 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @SpringBootApplication
-@EnableFeignClients
 public class PowerStationApplication extends SpringBootServletInitializer implements RepositoryRestConfigurer {
 
     public static void main(String[] args) {
