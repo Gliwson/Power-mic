@@ -3,7 +3,9 @@ import {BreakpointObserver, MediaMatcher} from '@angular/cdk/layout';
 import {Router} from '@angular/router';
 import {Customer} from '../services/customer.service';
 import {KeycloakService} from 'keycloak-angular';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 @Component({
     selector: 'app-navigation',
@@ -15,6 +17,7 @@ export class NavigationComponent implements OnInit {
     mobileQuery: MediaQueryList;
     isLogged: boolean;
     username: string;
+    database: any;
 
     private _mobileQueryListener: () => void;
 
@@ -45,6 +48,11 @@ export class NavigationComponent implements OnInit {
 
     doRegister() {
         this.customer.register();
+    }
+
+    click() {
+        this.http.get('http://localhost:8086/keycloak/profile', {headers})
+            .subscribe(value => this.database = value);
     }
 }
 

@@ -11,6 +11,8 @@
         </button>
         <button *ngIf="isLogged" type="button" class="btn btn-outline-light ml-auto" (click)="doLogout()">Logout
         </button>
+        <button type="button" class="btn btn-outline-light ml-auto" (click)="click()">TestRestAdmin
+        </button>
     </mat-toolbar>
     <mat-sidenav-container class="example-sidenav-container"
             [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
@@ -29,6 +31,7 @@
         <mat-sidenav-content>
             <mat-nav-list>
             </mat-nav-list>
+            {{database | json}}
             <ng-content></ng-content>
         </mat-sidenav-content>
     </mat-sidenav-container>
