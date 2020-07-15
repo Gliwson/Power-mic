@@ -1,6 +1,7 @@
 package pl.power.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import pl.power.constant.TaskType;
 
 import javax.validation.constraints.NotBlank;
@@ -9,8 +10,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@Setter
 public class TaskDTO implements DTOInterface , Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -28,4 +32,19 @@ public class TaskDTO implements DTOInterface , Serializable {
 
     @NotNull
     private Timestamp endDate;
+
+    public TaskDTO() {
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "id=" + id +
+                ", namePowerStation='" + namePowerStation + '\'' +
+                ", taskType=" + taskType +
+                ", powerLoss=" + powerLoss +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

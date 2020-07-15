@@ -27,6 +27,11 @@ public abstract class CrudAbstractService<E extends EntityInterface, D extends D
         return new PairPageable<>(allEntities.getTotalElements(), mapper.toDTOs(content));
     }
 
+    public List<D> findAll() {
+        List<E> allEntities = jpaRepository.findAll();
+        return mapper.toDTOs(allEntities);
+    }
+
     public D findById(Long id) {
         if (id == null) {
             throw new IdIsNullException();

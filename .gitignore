@@ -6,3 +6,4 @@
 /powerTest.iml
 /target/sonar/report-task.txt
 /target/sonar/.sonar_lock
+*.db
