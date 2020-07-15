@@ -14,14 +14,14 @@ public class TaskAndPowerStationsSaveToDatabase {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @LogController
-    @RabbitListener(queues = "app")
+    @RabbitListener(queues = "event")
     public void getTasks(String json) {
         TaskDTO taskDTO = jsonToJava(json, TaskDTO.class);
         //todo save to database
     }
 
     @LogController
-    @RabbitListener(queues = "app2")
+    @RabbitListener(queues = "powerStation")
     public void getPowerStations(String json) {
         PowerStationDTO powerStationDTO = jsonToJava(json, PowerStationDTO.class);
         //todo save to database

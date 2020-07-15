@@ -22,6 +22,16 @@ public class ConfigRabbitMQ {
     }
 
     @Bean
+    Queue powerStation() {
+        return new Queue("powerStation",false);
+    }
+
+    @Bean
+    Queue event() {
+        return new Queue("event",false);
+    }
+
+    @Bean
     FanoutExchange exchange() {
         return new FanoutExchange(topicExchangeName);
     }
