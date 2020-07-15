@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ConfigRabbitMQ {
 
-    static final String topicExchangeName = "test-mateusz-exchange";
+    static final String TOPIC_EXCHANGE_NAME = "test-mateusz-exchange";
 
-    static final String queueName = "app";
+    static final String QUEUE_NAME = "app";
 
     @Bean
     Queue queue() {
-        return new Queue(queueName);
+        return new Queue(QUEUE_NAME);
     }
 
     @Bean
@@ -33,7 +33,7 @@ public class ConfigRabbitMQ {
 
     @Bean
     FanoutExchange exchange() {
-        return new FanoutExchange(topicExchangeName);
+        return new FanoutExchange(TOPIC_EXCHANGE_NAME);
     }
 
     @Bean

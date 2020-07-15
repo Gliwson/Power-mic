@@ -1,4 +1,4 @@
-package pl.power.services.serviceImpl;
+package pl.power.services.impl;
 
 import org.springframework.stereotype.Service;
 import pl.power.model.PowerStationRemoteDto;

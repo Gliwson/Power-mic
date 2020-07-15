@@ -1,4 +1,4 @@
-package pl.power.services.serviceImpl;
+package pl.power.services.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheConfig;

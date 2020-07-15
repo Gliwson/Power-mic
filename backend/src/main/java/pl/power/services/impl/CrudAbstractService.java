@@ -1,4 +1,4 @@
-package pl.power.services.serviceImpl;
+package pl.power.services.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package pl.power.services.serviceImpl;
+package pl.power.services.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

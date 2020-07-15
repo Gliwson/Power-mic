@@ -18,7 +18,7 @@ class DateCalculatorTest {
     private PowerStation powerStation;
 
     @BeforeEach
-    public void init() {
+    void init() {
         Task task = new Task();
         task.setId(1L);
         task.setPowerLoss(new BigDecimal(100));
@@ -55,52 +55,52 @@ class DateCalculatorTest {
     }
 
     @Test
-    public void shouldReturnIdPowerStation() {
+    void shouldReturnIdPowerStation() {
         //given
         DateCalculator dateCalculator = new DateCalculator("2020-01-25");
         //when
-        PairCalculator<Long,BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
+        PairCalculator<Long, BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
         //then
         assertThat(result.getKey(), is(1L));
 
     }
 
     @Test
-    public void powerShouldBeSame() {
+    void powerShouldBeSame() {
         //given
         DateCalculator dateCalculator = new DateCalculator("2020-06-26");
         //when
-        PairCalculator<Long,BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
+        PairCalculator<Long, BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
         //then
         assertThat(result.getValue(), is(new BigDecimal(200 * 24).setScale(2, RoundingMode.HALF_UP)));
     }
 
     @Test
-    public void powerShouldZero() {
+    void powerShouldZero() {
         //given
         DateCalculator dateCalculator = new DateCalculator("2020-01-25");
         //when
-        PairCalculator<Long,BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
+        PairCalculator<Long, BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
         //then
         assertThat(result.getValue(), is(new BigDecimal(0).setScale(2, RoundingMode.HALF_UP)));
     }
 
     @Test
-    public void powerShouldBeAHundredLower() {
+    void powerShouldBeAHundredLower() {
         //given
         DateCalculator dateCalculator = new DateCalculator("2019-12-31");
         //when
-        PairCalculator<Long,BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
+        PairCalculator<Long, BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
         //then
         assertThat(result.getValue(), is(new BigDecimal((200 * 24) - 100).setScale(2, RoundingMode.HALF_UP)));
     }
 
     @Test
-    public void shouldBeAbleCountInTheMiddleOfTheDay() {
+    void shouldBeAbleCountInTheMiddleOfTheDay() {
         //given
         DateCalculator dateCalculator = new DateCalculator("2018-01-20");
         //when
-        PairCalculator<Long,BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
+        PairCalculator<Long, BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation);
         //then
         assertThat(result.getValue(), is(new BigDecimal((200 * 24) - 100).setScale(2, RoundingMode.HALF_UP)));
     }

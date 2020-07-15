@@ -3,7 +3,6 @@ package pl.power.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,17 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.power.aspect.LogController;
-import pl.power.services.serviceImpl.DefaultPowerStationService;
-import pl.power.services.serviceImpl.DefaultTaskService;
-
-import static org.slf4j.LoggerFactory.getLogger;
+import pl.power.services.impl.DefaultPowerStationService;
+import pl.power.services.impl.DefaultTaskService;
 
 @RestController
 @RequestMapping(value = "/api/rabbit", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RabbitController {
-
-
-    private static final Logger log = getLogger(RabbitController.class);
 
     private final DefaultTaskService taskService;
     private final DefaultPowerStationService powerStationService;

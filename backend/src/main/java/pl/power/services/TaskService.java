@@ -3,7 +3,7 @@ package pl.power.services;
 import org.springframework.data.domain.Pageable;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
-import pl.power.services.serviceImpl.PairPageable;
+import pl.power.services.impl.PairPageable;
 
 public interface TaskService {
 

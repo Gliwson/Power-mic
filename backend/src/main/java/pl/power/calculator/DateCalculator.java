@@ -32,30 +32,36 @@ public class DateCalculator {
             LocalDate startDate = start.toLocalDate();
             LocalDate endDate = end.toLocalDate();
 
-            if (startDate.compareTo(dateTime) <= 0 && 0 <= endDate.compareTo(dateTime)) {
-                if (startDate.isBefore(dateTime)) {
-                    min = LocalTime.MIN;
-                }
-                if (endDate.isAfter(dateTime)) {
-                    max = LocalTime.MAX;
-                }
-                if (startDate.isEqual(dateTime)) {
-                    min = LocalTime.of(start.getHour(), start.getMinute());
-                }
-                if (endDate.isEqual(dateTime)) {
-                    max = LocalTime.of(end.getHour(), end.getMinute());
-                }
+            hours = filterDate(min, max, hours, start, end, startDate, endDate);
 
-                long second = (max != null ? max.toSecondOfDay() : 0) - (min != null ? min.toSecondOfDay() : 0);
-
-                BigDecimal time = new BigDecimal(second);
-                BigDecimal hour = new BigDecimal("3600");
-                hours = time.divide(hour, 2, RoundingMode.HALF_UP);
-            }
             BigDecimal result = decimalPair.getValue().subtract(t.getPowerLoss().multiply(hours));
             result = result.setScale(2, RoundingMode.HALF_UP);
             decimalPair = new PairCalculator<>(id, result);
         }
         return decimalPair;
+    }
+
+    private BigDecimal filterDate(LocalTime min, LocalTime max, BigDecimal hours, LocalDateTime start, LocalDateTime end, LocalDate startDate, LocalDate endDate) {
+        if (startDate.compareTo(dateTime) <= 0 && 0 <= endDate.compareTo(dateTime)) {
+            if (startDate.isBefore(dateTime)) {
+                min = LocalTime.MIN;
+            }
+            if (endDate.isAfter(dateTime)) {
+                max = LocalTime.MAX;
+            }
+            if (startDate.isEqual(dateTime)) {
+                min = LocalTime.of(start.getHour(), start.getMinute());
+            }
+            if (endDate.isEqual(dateTime)) {
+                max = LocalTime.of(end.getHour(), end.getMinute());
+            }
+
+            long second = (max != null ? max.toSecondOfDay() : 0) - (min != null ? min.toSecondOfDay() : 0);
+
+            BigDecimal time = new BigDecimal(second);
+            BigDecimal hour = new BigDecimal("3600");
+            hours = time.divide(hour, 2, RoundingMode.HALF_UP);
+        }
+        return hours;
     }
 }

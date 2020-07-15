@@ -11,7 +11,7 @@ import pl.power.aspect.LogController;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
 import pl.power.services.TaskService;
-import pl.power.services.serviceImpl.PairPageable;
+import pl.power.services.impl.PairPageable;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;

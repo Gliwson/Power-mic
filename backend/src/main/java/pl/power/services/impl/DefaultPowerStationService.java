@@ -1,4 +1,4 @@
-package pl.power.services.serviceImpl;
+package pl.power.services.impl;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.annotation.*;
@@ -12,9 +12,9 @@ import pl.power.domain.entity.Task;
 import pl.power.constant.TaskType;
 import pl.power.repository.PowerStationRepository;
 import pl.power.repository.TaskRepository;
-import pl.power.domain.xmlDomain.Capacity;
-import pl.power.domain.xmlDomain.Event;
-import pl.power.domain.xmlDomain.NameAndEic;
+import pl.power.domain.xml.Capacity;
+import pl.power.domain.xml.Event;
+import pl.power.domain.xml.NameAndEic;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.PowerStationDTO;
 import pl.power.services.PowerStationService;

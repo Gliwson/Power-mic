@@ -33,9 +33,6 @@ public class TaskDTO implements DTOInterface , Serializable {
     @NotNull
     private Timestamp endDate;
 
-    public TaskDTO() {
-    }
-
     @Override
     public String toString() {
         return "TaskDTO{" +
