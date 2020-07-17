@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TaskServiceSoap {
+public class TaskServiceSoapImpl {
 
     private final ModelMapper mapper;
     private final TaskRepository repository;
 
-    public TaskServiceSoap(ModelMapper mapper, TaskRepository repository) {
+    public TaskServiceSoapImpl(ModelMapper mapper, TaskRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
     }

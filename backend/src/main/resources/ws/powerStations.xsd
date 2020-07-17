@@ -1,0 +1,48 @@
+<xs:schema xmlns:asn="http://s0314/getPowerStations" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="unqualified"
+           targetNamespace="http://s0314/getPowerStations">
+
+    <!--    Endpoint all-->
+    <xs:element name="getAllPowerStationsRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllPowerStationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="powerStations" nillable="true"
+                            type="asn:powerStationXML"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Endpoint ByID-->
+    <xs:element name="getByIdPowerStationsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getByIdPowerStationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="powerStation" type="asn:powerStationXML"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Object-->
+    <xs:complexType name="powerStationXML">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="power" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,4 +1,4 @@
-package pl.power.repository;
+package pl.power.config;
 
 
 import feign.codec.Decoder;

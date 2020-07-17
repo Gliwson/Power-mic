@@ -206,9 +206,10 @@
                 </executions>
                 <configuration>
                     <sources>
-                        <source>${project.basedir}/src/main/resources/events.xsd</source>
-                        <source>${project.basedir}/src/main/resources/tasks.xsd</source>
-                        <source>${project.basedir}/src/main/resources/eventById.xsd</source>
+                        <source>${project.basedir}/src/main/resources/ws/events.xsd</source>
+                        <source>${project.basedir}/src/main/resources/ws/tasks.xsd</source>
+                        <source>${project.basedir}/src/main/resources/ws/eventById.xsd</source>
+                        <source>${project.basedir}/src/main/resources/ws/powerStations.xsd</source>
                     </sources>
                 </configuration>
             </plugin>

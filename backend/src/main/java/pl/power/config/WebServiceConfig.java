@@ -37,9 +37,10 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchemaCollection countriesSchema() {
         return new CommonsXsdSchemaCollection(
-                new ClassPathResource("tasks.xsd"),
-                new ClassPathResource("events.xsd"),
-                new ClassPathResource("eventById.xsd")
+                new ClassPathResource("ws/tasks.xsd"),
+                new ClassPathResource("ws/events.xsd"),
+                new ClassPathResource("ws/eventById.xsd"),
+                new ClassPathResource("ws/powerStations.xsd")
         );
     }
 }

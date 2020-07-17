@@ -5,6 +5,7 @@ import com.alla.getallevents.GetAllEventsResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.power.config.MySoapClientConfiguration;
 import s0314.gettask.GetAllTasksRequest;
 import s0314.gettask.GetAllTasksResponse;
 

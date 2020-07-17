@@ -4,16 +4,16 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import pl.power.services.impl.TaskServiceSoap;
+import pl.power.services.impl.TaskServiceSoapImpl;
 import s0314.gettask.GetAllTasksRequest;
 import s0314.gettask.GetAllTasksResponse;
 
 @Endpoint
-public class StudentEndpoint {
+public class TaskEnd {
 
-    private final TaskServiceSoap serviceSoap;
+    private final TaskServiceSoapImpl serviceSoap;
 
-    public StudentEndpoint(TaskServiceSoap serviceSoap) {
+    public TaskEnd(TaskServiceSoapImpl serviceSoap) {
         this.serviceSoap = serviceSoap;
     }
 
@@ -25,13 +25,5 @@ public class StudentEndpoint {
         getResponse.getTasks().addAll(serviceSoap.getAll());
         return getResponse;
     }
-
-//    @PayloadRoot(namespace = "http://alla.com/getallevents", localPart = "getAllEventsRequest2")
-//    @ResponsePayload
-//    public GetAllEventsResponse getStudentById2(@RequestPayload GetAllEventsRequest getAllTasksRequest) {
-//        GetAllEventsResponse getResponse = new GetAllEventsResponse();
-//        getResponse.getMylist().addAll(null);
-//        return getResponse;
-//    }
 
 }

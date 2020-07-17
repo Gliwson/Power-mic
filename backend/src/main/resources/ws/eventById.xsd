@@ -1,18 +1,24 @@
-<xs:schema xmlns:asn="http://alla.com/getallevents" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://alla.com/getallevents">
-    <xs:element name="getAllEventsRequest">
-        <xs:complexType>
-            <xs:sequence/>
-        </xs:complexType>
-    </xs:element>
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:asn="http://alla.com/getevent"
+           targetNamespace="http://alla.com/getevent">
 
-    <xs:element name="getAllEventsResponse">
+    <xs:element name="getEventByIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element  name="mylist" nillable="true" type="asn:event"/>
+                <xs:element name="id" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="event">
+
+    <xs:element name="getEventByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="event" type="asn:eventXML"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="eventXML">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="eventType" type="xs:string"/>

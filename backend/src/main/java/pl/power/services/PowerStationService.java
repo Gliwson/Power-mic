@@ -6,9 +6,12 @@ import pl.power.services.impl.PairPageable;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 public interface PowerStationService {
+
+    List<PowerStationDTO> findAll();
 
     Long save(PowerStationDTO powerStationDTO);
 
