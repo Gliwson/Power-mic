@@ -32,7 +32,7 @@ public class PowerStationController {
         this.powerStationService = powerStationService;
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+//    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @LogController
     @GetMapping
     public Page<PowerStationDTO> getPowerStations(@RequestParam(name = "page", defaultValue = "0") int page,

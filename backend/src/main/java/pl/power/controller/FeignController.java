@@ -1,14 +1,17 @@
 package pl.power.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.power.aspect.LogController;
 import pl.power.model.PowerStationRemoteDto;
+import pl.power.repository.EventWithRemoteServerRepository;
 import pl.power.services.PowerStationRemoteService;
+import s0314.gettask.GetAllTasksRequest;
+import s0314.gettask.GetAllTasksResponse;
+import s0314.gettask.TaskXML;
 
 import java.util.List;
 
@@ -16,19 +19,35 @@ import java.util.List;
 @RequestMapping(value = "/api/feign", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeignController {
 
-    Logger log = LoggerFactory.getLogger(FeignController.class);
 
     private final PowerStationRemoteService remoteService;
+    private final EventWithRemoteServerRepository remoteServerRepository;
 
-    public FeignController(PowerStationRemoteService remoteService) {
+    public FeignController(PowerStationRemoteService remoteService, EventWithRemoteServerRepository remoteServerRepository) {
         this.remoteService = remoteService;
+        this.remoteServerRepository = remoteServerRepository;
     }
 
     @LogController()
     @GetMapping("/getpowerStations")
     public List<PowerStationRemoteDto> getPowerStationsWithFeign() {
-        log.info("method: getPowerStationsWithFeign feign send");
         return remoteService.getAll();
+    }
+
+//    @LogController()
+//    @GetMapping("/getpowerStations2")
+//    public List<Event> getEventWithFeign() {
+//        GetAllEventsRequest request = new GetAllEventsRequest();
+//        GetAllEventsResponse powerStation = remoteServerRepository.getPowerStation(request);
+//        return powerStation.getMylist();
+//    }
+
+    @LogController()
+    @GetMapping("/getpower")
+    public List<TaskXML> getEventWithFeign3() {
+        GetAllTasksRequest request = new GetAllTasksRequest();
+        GetAllTasksResponse powerStation = remoteServerRepository.getEvents(request);
+        return powerStation.getTasks();
     }
 
 }

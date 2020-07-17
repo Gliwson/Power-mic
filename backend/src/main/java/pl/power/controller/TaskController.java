@@ -26,18 +26,18 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    //    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @LogController
     @GetMapping
-    public Page<TaskDTO> getTasks(@RequestParam(name = "page", defaultValue = "0") int page,
-                                  @RequestParam(name = "size", defaultValue = "20") int size
+    public Page<TaskDTO> getTasks(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                  @RequestParam(name = "size", defaultValue = "22", required = false) int size
     ) {
         PageRequest pageable = PageRequest.of(page, size);
         PairPageable<TaskDTO> pairPageable = taskService.findAll(pageable);
         return new PageImpl<>(pairPageable.getElements(), pageable, pairPageable.getTotalElements());
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}")
     public TaskDTO getTaskById(@PathVariable Long id) {
@@ -67,7 +67,7 @@ public class TaskController {
         return taskService.update(createTaskDTO);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}/{taskType}")
     public Long getNumberOfEvents(@PathVariable Long id, @PathVariable String taskType) {

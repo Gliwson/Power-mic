@@ -1,0 +1,30 @@
+<xs:schema xmlns:asn="http://s0314/gettask" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://s0314/gettask">
+    <xs:element name="getAllTasksRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAllTasksResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="tasks" nillable="true" type="asn:taskXML"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="taskXML">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="namePowerStation" type="xs:string"/>
+            <xs:element name="taskType" type="asn:typeXML"/>
+            <xs:element name="powerLoss" type="xs:decimal"/>
+            <xs:element name="startDate" type="xs:dateTime"/>
+            <xs:element name="endDate" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="typeXML">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AWARIA"/>
+            <xs:enumeration value="REMONT"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

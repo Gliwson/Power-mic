@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:asn="http://alla.com/getevent"
+           targetNamespace="http://alla.com/getevent">
+
+    <xs:element name="getEventByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getEventByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dog2" type="asn:dom"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="dom">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="eventType" type="xs:string"/>
+            <xs:element name="powerLoss" type="xs:int"/>
+            <xs:element name="startDate" type="xs:dateTime"/>
+            <xs:element name="endDate" type="xs:dateTime"/>
+            <xs:element name="psId" type="xs:long"/>
+            <xs:element name="psName" type="xs:string"/>
+            <xs:element name="psPower" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -96,8 +96,31 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!--        XML-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.xmlschema</groupId>
+            <artifactId>xmlschema-core</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.3</version>
+        </dependency>
 
         <!--        OTHER-->
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-soap</artifactId>
+            <version>11.0</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -140,6 +163,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.2.10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api -->
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.2</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -154,13 +189,57 @@
         </dependencies>
     </dependencyManagement>
 
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.5.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/events.xsd</source>
+                        <source>${project.basedir}/src/main/resources/tasks.xsd</source>
+                        <source>${project.basedir}/src/main/resources/eventById.xsd</source>
+                    </sources>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>jaxws-maven-plugin</artifactId>-->
+<!--                <version>2.6</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>wsimport</goal>-->
+<!--                        </goals>-->
+<!--                        &lt;!&ndash; Following configuration will pass all XML files from ${project.basedir}/src/bindings to wsimport. &ndash;&gt;-->
+<!--                        <configuration>-->
+<!--&lt;!&ndash;                            <bindingDirectory>${project.basedir}/src/bindings</bindingDirectory>&ndash;&gt;-->
+<!--                            <wsdlUrls>-->
+<!--                                <wsdlUrl>http://s0313:9966/ws/event.wsdl</wsdlUrl>-->
+<!--                            </wsdlUrls>-->
+<!--                            <wsdlLocation>http://alla.com/</wsdlLocation>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
+
         <pluginManagement>
             <plugins>
                 <plugin>

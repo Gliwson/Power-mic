@@ -20,4 +20,5 @@ public interface PowerStationWithRemoteServerRepository {
     @GetMapping
     @Headers("Content-Type: application/json")
     List<PowerStationRemoteDto> getPowerStation2();
+
 }
