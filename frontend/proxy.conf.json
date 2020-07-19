@@ -1,5 +1,5 @@
 {
     "/power/api/*": {
-        "target": "http://localhost:8085"
+        "target": "http://backend:8085"
     }
 }

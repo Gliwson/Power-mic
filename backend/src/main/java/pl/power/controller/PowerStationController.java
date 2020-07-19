@@ -32,7 +32,7 @@ public class PowerStationController {
         this.powerStationService = powerStationService;
     }
 
-//    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    //    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @LogController
     @GetMapping
     public Page<PowerStationDTO> getPowerStations(@RequestParam(name = "page", defaultValue = "0") int page,
@@ -44,7 +44,7 @@ public class PowerStationController {
         return new PageImpl<>(pairPageable.getElements(), pageRequest, pairPageable.getTotalElements());
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}")
     public PowerStationDTO getPowerStation(@PathVariable("id") Long id) {
@@ -67,28 +67,28 @@ public class PowerStationController {
         powerStationService.delete(id);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @PatchMapping("/{id}")
     public PowerStationDTO updatePowerStation(@PathVariable Long id, @Valid @RequestBody PowerStationDTO powerStationDTO) {
         return powerStationService.update(id, powerStationDTO);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}/{taskType}")
     public Long getNumberOfEvents(@PathVariable Long id, @PathVariable String taskType) {
         return powerStationService.countEventsByIdPowerStation(id, taskType);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/")
     public Map<Long, BigDecimal> getDateAndPower(@RequestParam(value = "date") String date) {
         return powerStationService.getDateAndPower(date);
     }
 
-    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/addAll")
     @ResponseStatus(value = HttpStatus.CREATED)

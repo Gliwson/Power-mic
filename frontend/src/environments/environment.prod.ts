@@ -1,9 +1,9 @@
 import {KeycloakConfig, KeycloakInitOptions, KeycloakOptions} from 'keycloak-angular';
 
 const keycloakConfig: KeycloakConfig = {
-    url: 'http://localhost:8080/auth',
+    url: '/auth',
     realm: 'demo',
-    clientId: 'my-app',
+    clientId: 'my-app'
 };
 
 const keycloakInitOptions: KeycloakInitOptions = {

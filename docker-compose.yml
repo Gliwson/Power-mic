@@ -1,61 +1,63 @@
 version: '3'
 
-#volumes:
-#  mysql_data:
-#    driver: local
+volumes:
+  postgres_data:
+    driver: local
 
 services:
 
-  #  mysql:
-  #    image: mysql:5.7
-  #    volumes:
-  #      - mysql_data:/var/lib/mysql
-  #    environment:
-  #      MYSQL_ROOT_PASSWORD: root
-  #      MYSQL_DATABASE: keycloak
-  #      MYSQL_USER: keycloak
-  #      MYSQL_PASSWORD: password
-  #    networks:
-  #      mynet:
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    networks:
+      mynet:
 
   keycloak:
     image: jboss/keycloak:10.0.2
+    volumes:
+      - ./keycloakConfig:/tmp
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT_REALM: /keycloakConfig/gliwson-realm.json
-    #      DB_VENDOR: MYSQL
-    #      DB_ADDR: mysql
-    #      DB_DATABASE: keycloak
-    #      DB_USER: keycloak
-    #      DB_PASSWORD: password
+      KEYCLOAK_IMPORT: /tmp/gliwson-realm.json
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
     ports:
       - 8080:8080
     networks:
       mynet:
-  #    depends_on:
-  #      - mysql
+    depends_on:
+      - postgres
 
-#  backend:
-#    build:
-#      context: ./backend
-#      dockerfile: Dockerfile
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
-#      SPRING_DATASOURCE_USERNAME: "root"
-#      SPRING_DATASOURCE_PASSWORD: "root"
-#      SPRING_REDIS_HOST: redis
-#      KEYCLOAK_AUTH-SERVER-URL: http://keycloak:8080/auth
-#      spring.rabbitmq.host: host.docker.internal
-#    ports:
-#      - "8085:8085"
-#    networks:
-#      mynet:
-#    depends_on:
-#      - redis
-#      - database
-#      - frontend
-#      - keycloak
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/powerStation?serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_REDIS_HOST: redis
+      keycloak.auth-server-url: http://localhost:4200/auth
+      KEYCLOAK_PROXY-URL: http://keycloak:8080/auth
+      spring.rabbitmq.host: rabbitmq
+    ports:
+      - "8085:8085"
+    networks:
+      mynet:
+    depends_on:
+      - redis
+      - database
+      - keycloak
+      - rabbitmq
 
   database:
     container_name: 'database'
@@ -77,14 +79,28 @@ services:
     networks:
       mynet:
 
-#  frontend:
-#    build:
-#      context: ./frontend
-#      dockerfile: Dockerfile
-#    ports:
-#      - "4200:4200"
-#    networks:
-#      mynet:
+  rabbitmq:
+    container_name: 'some-rabbit'
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=test
+      - RABBITMQ_DEFAULT_PASS=test
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      mynet:
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      mynet:
 
 networks:
   mynet:
+    driver: bridge
