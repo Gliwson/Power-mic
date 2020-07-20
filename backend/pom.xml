@@ -152,6 +152,22 @@
         </dependency>
 
         <!--        TEST-->
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.2-groovy-2.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>1.2-groovy-2.4</version>
+            <scope>test</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -191,7 +207,20 @@
 
 
     <build>
+        <!--        test-->
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
@@ -219,26 +248,26 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>jaxws-maven-plugin</artifactId>-->
-<!--                <version>2.6</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>wsimport</goal>-->
-<!--                        </goals>-->
-<!--                        &lt;!&ndash; Following configuration will pass all XML files from ${project.basedir}/src/bindings to wsimport. &ndash;&gt;-->
-<!--                        <configuration>-->
-<!--&lt;!&ndash;                            <bindingDirectory>${project.basedir}/src/bindings</bindingDirectory>&ndash;&gt;-->
-<!--                            <wsdlUrls>-->
-<!--                                <wsdlUrl>http://s0313:9966/ws/event.wsdl</wsdlUrl>-->
-<!--                            </wsdlUrls>-->
-<!--                            <wsdlLocation>http://alla.com/</wsdlLocation>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.mojo</groupId>-->
+            <!--                <artifactId>jaxws-maven-plugin</artifactId>-->
+            <!--                <version>2.6</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            <goal>wsimport</goal>-->
+            <!--                        </goals>-->
+            <!--                        &lt;!&ndash; Following configuration will pass all XML files from ${project.basedir}/src/bindings to wsimport. &ndash;&gt;-->
+            <!--                        <configuration>-->
+            <!--&lt;!&ndash;                            <bindingDirectory>${project.basedir}/src/bindings</bindingDirectory>&ndash;&gt;-->
+            <!--                            <wsdlUrls>-->
+            <!--                                <wsdlUrl>http://s0313:9966/ws/event.wsdl</wsdlUrl>-->
+            <!--                            </wsdlUrls>-->
+            <!--                            <wsdlLocation>http://alla.com/</wsdlLocation>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
 
         <pluginManagement>
