@@ -7,6 +7,7 @@ volumes:
 services:
 
   postgres:
+    container_name: power_postgres
     image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -18,6 +19,7 @@ services:
       mynet:
 
   keycloak:
+    container_name: power_keycloak
     image: jboss/keycloak:10.0.2
     volumes:
       - ./keycloakConfig:/tmp
@@ -38,6 +40,7 @@ services:
       - postgres
 
   backend:
+    container_name: power_backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -60,7 +63,7 @@ services:
       - rabbitmq
 
   database:
-    container_name: 'database'
+    container_name: 'power_database'
     image: 'mysql:latest'
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -72,7 +75,7 @@ services:
       mynet:
 
   redis:
-    container_name: 'redis'
+    container_name: 'power_redis'
     image: redis
     ports:
       - "6379:6379"
@@ -80,7 +83,7 @@ services:
       mynet:
 
   rabbitmq:
-    container_name: 'some-rabbit'
+    container_name: 'power_rabbit'
     image: rabbitmq:3-management
     environment:
       - RABBITMQ_DEFAULT_USER=test
@@ -93,6 +96,7 @@ services:
 
 
   frontend:
+    container_name: power_frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
