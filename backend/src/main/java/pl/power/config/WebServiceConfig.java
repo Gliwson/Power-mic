@@ -38,8 +38,6 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchemaCollection countriesSchema() {
         return new CommonsXsdSchemaCollection(
                 new ClassPathResource("ws/tasks.xsd"),
-                new ClassPathResource("ws/events.xsd"),
-                new ClassPathResource("ws/eventById.xsd"),
                 new ClassPathResource("ws/powerStations.xsd")
         );
     }

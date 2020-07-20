@@ -39,5 +39,4 @@ public class Task implements Serializable, EntityInterface {
     @Column(name = "end_date")
     private Timestamp endDate;
 
-
 }
