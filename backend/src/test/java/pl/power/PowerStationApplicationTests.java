@@ -18,7 +18,7 @@ import s0314.gettask.GetAllTasksResponse;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PowerStationApplicationTests {
 
-    private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+    private final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
     @BeforeEach
     public void init() throws Exception {
@@ -33,8 +33,8 @@ class PowerStationApplicationTests {
 //
 //        GetAllEventsRequest request = new GetAllEventsRequest();
 //
-//        GetAllEventsResponse object = (GetAllEventsResponse) ws.marshalSendAndReceive("http://s0313:" + 9966 + "/ws", request);
-//        object.getMylist().forEach(event -> System.out.println(event.toString()));
+//        GetAllEventsResponse eventsResponse = (GetAllEventsResponse) ws.marshalSendAndReceive("http://s0313:" + 9966 + "/ws", request);
+//        assertThat(eventsResponse.ge)
 //    }
 
     @Test

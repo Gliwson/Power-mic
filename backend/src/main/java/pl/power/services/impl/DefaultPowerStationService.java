@@ -77,9 +77,13 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
                 .count();
     }
 
+    /**
+     * a method that takes a date and returns a map in which
+     * the keys will be the ID of the power station, and the values ​​will be the power for the given day.
+     */
     @Override
     @Cacheable
-    public Map<Long, BigDecimal> getDateAndPower(String date) {
+    public Map<Long, BigDecimal> getDateAndPowerForTheGivenDay(String date) {
         DateCalculator dateCalculator = new DateCalculator(date);
         return powerStationRepository.findAllOneSelect().stream()
                 .map(dateCalculator::subtractPowerLossFromPower)

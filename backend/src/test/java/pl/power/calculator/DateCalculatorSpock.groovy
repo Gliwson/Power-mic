@@ -1,12 +1,12 @@
 package pl.power.calculator
 
+
 import pl.power.constant.TaskType
 import pl.power.domain.entity.PowerStation
 import pl.power.domain.entity.Task
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import java.math.RoundingMode
 import java.sql.Timestamp
 
 @Unroll
@@ -51,29 +51,34 @@ class DateCalculatorSpock extends Specification {
     }
 
     def "should return id power stations"() {
-        //given
-        DateCalculator dateCalculator = new DateCalculator("2020-01-25");
-        //when
+        DateCalculator dateCalculator = new DateCalculator("2020-01-25")
+
         PairCalculator<Long, BigDecimal> result = dateCalculator.subtractPowerLossFromPower(powerStation)
-        //then
+
         expect:
         result.getKey() == 1
     }
 
-    def "powerShould be same"() {
-        //given
-        def dateCalculator = new DateCalculator("2020-06-26")
-
+    def "should return the values will be the power for the given day"() {
         expect:
-        dateCalculator.subtractPowerLossFromPower(powerStation).getValue() == new BigDecimal(200 * 24).setScale(2, RoundingMode.HALF_UP)
+        dateCalculator.subtractPowerLossFromPower(powerStation).getValue() == value
+
+        where:
+        dateCalculator                   || value
+        new DateCalculator("2020-06-26") || 4800
+        new DateCalculator("2019-12-31") || 4700
+        new DateCalculator("2018-01-20") || 4700
     }
 
-    def "power should be 100 lower"() {
-        DateCalculator dateCalculator = new DateCalculator("2019-12-31");
-
+    def "should return the keys will the ID of the power station"() {
         expect:
-        dateCalculator.subtractPowerLossFromPower(powerStation).getValue() == new BigDecimal((200 * 24) - 100).setScale(2, RoundingMode.HALF_UP)
+        dateCalculator.subtractPowerLossFromPower(powerStation).getKey() == key
 
+        where:
+        dateCalculator                   || key
+        new DateCalculator("2020-06-26") || 1
+        new DateCalculator("2019-12-31") || 1
+        new DateCalculator("2018-01-20") || 1
     }
 
 }

@@ -44,13 +44,15 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
         this.modelMapper = modelMapper;
     }
 
+
     @Override
     @CacheEvict(cacheNames = "tasks", allEntries = true)
     @Transactional
     public Long add(CreateTaskDTO createTaskDTO) {
         Task task = modelMapper.map(createTaskDTO, Task.class);
         Optional<PowerStation> powerStationOptional = powerStationRepository.findById(task.getId());
-        PowerStation powerStation = powerStationOptional.orElseThrow(() -> new PowerStationNotFoundException(task.getId()));
+        PowerStation powerStation = powerStationOptional
+                .orElseThrow(() -> new PowerStationNotFoundException(task.getId()));
         task.setId(null);
         powerStation.add(task);
         powerStationRepository.save(powerStation);
@@ -110,7 +112,6 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     }
 
     @Override
-
     @CacheEvict(cacheNames = "tasks", allEntries = true)
     public Long save(TaskDTO dto) {
         return super.save(dto);

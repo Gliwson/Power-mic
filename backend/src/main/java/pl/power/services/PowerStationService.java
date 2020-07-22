@@ -25,7 +25,7 @@ public interface PowerStationService {
 
     Long countEventsByIdPowerStation(Long id, String taskType);
 
-    Map<Long, BigDecimal> getDateAndPower(String date);
+    Map<Long, BigDecimal> getDateAndPowerForTheGivenDay(String date);
 
     @Transactional
     void addAll();
