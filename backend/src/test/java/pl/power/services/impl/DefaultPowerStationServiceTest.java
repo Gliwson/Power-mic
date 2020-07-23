@@ -116,7 +116,7 @@ class DefaultPowerStationServiceTest {
         //given
         given(repository.findAllOneSelect()).willReturn(Collections.singletonList(powerStation));
         //when
-        Map<Long, BigDecimal> result = service.getDateAndPowerForTheGivenDay("2010-12-01");
+        Map<Long, BigDecimal> result = service.getIdAndPowerForTheGivenDay("2010-12-01");
         //then
         then(repository).should().findAllOneSelect();
         assertThat(result.size(), is(1));
