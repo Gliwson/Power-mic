@@ -1,6 +1,7 @@
 package pl.power.controller;
 
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import s0314.gettask.TaskXML;
 
 import java.util.List;
 
+@Profile("prod")
 @RestController
 @RequestMapping(value = "/api/feign", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeignController {

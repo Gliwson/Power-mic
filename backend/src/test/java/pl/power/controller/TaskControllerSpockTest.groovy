@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
@@ -23,21 +24,24 @@ import spock.mock.DetachedMockFactory
 
 import java.sql.Timestamp
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 @Unroll
 @AutoConfigureMockMvc()
 @WebMvcTest(controllers = [TaskController])
-@ActiveProfiles("dev,test")
+//@SpringBootTest()
+@ActiveProfiles("dev")
 @Import(value = TestSecConfig.class)
 @TestPropertySource("classpath:application-dev.properties")
 class TaskControllerSpockTest extends Specification {
 
-    @Autowired
     protected MockMvc mvc
 
     @Autowired
-    TaskService taskService
+    TaskService taskService;
 
     @Autowired
     ObjectMapper mapper
@@ -65,16 +69,25 @@ class TaskControllerSpockTest extends Specification {
         def ev1JsonString = mapper.writeValueAsString(request)
 
 //        and:
-//        def result = taskService.findById(1L) >> taskDto
+//        1 * taskService.findById(2L) >> taskDto
 
-        when:
-        mvc.perform(post('/power/api/tasks/1').contentType(MediaType.APPLICATION_JSON).content(ev1JsonString))
+        expect:
+        mvc.perform(get('/api/tasks/2'))
+                .andExpect(status().isOk())
+                .andReturn()
+                .response
+                .contentAsString == ev1JsonString
 
-        then:
-        result.andExpect(MockMvcResultMatchers.status().isOk())
+
     }
 
-    def "GetTasks"() {
+    def "when get is performed then the response has status 200 and content is 'Hello world!'"() {
+        expect: "Status is 200 and the response is 'Hello world!'"
+        mvc.perform(get("/api/tasks/hello"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .response
+                .contentAsString == "Hello world!"
     }
 
     def "GetTaskById"() {

@@ -26,6 +26,11 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @GetMapping("/hello")
+    public String salutation() {
+        return "Hello world!";
+    }
+
     //    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @LogController
     @GetMapping

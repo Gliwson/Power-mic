@@ -1,12 +1,13 @@
 package pl.power.services.impl;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import pl.power.model.PowerStationRemoteDto;
 import pl.power.repository.PowerStationWithRemoteServerRepository;
 import pl.power.services.PowerStationRemoteService;
 
 import java.util.List;
-
+@Profile("prod")
 @Service
 public class PowerStationRemoteServiceImpl implements PowerStationRemoteService {
     private final PowerStationWithRemoteServerRepository remoteServerRepository;
