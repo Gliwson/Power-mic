@@ -83,7 +83,7 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
      */
     @Override
     @Cacheable
-    public Map<Long, BigDecimal> getDateAndPowerForTheGivenDay(String date) {
+    public Map<Long, BigDecimal> getIdAndPowerForTheGivenDay(String date) {
         DateCalculator dateCalculator = new DateCalculator(date);
         return powerStationRepository.findAllOneSelect().stream()
                 .map(dateCalculator::subtractPowerLossFromPower)
