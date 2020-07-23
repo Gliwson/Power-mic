@@ -31,7 +31,7 @@ public class DateCalculator {
             LocalDate startDate = start.toLocalDate();
             LocalDate endDate = end.toLocalDate();
 
-            BigDecimal sumOfTheHoursOfTheWholeDay = filterDateAndReturnSumOfTheHoursOfTheWholeDay(start, end, startDate, endDate);
+            BigDecimal sumOfTheHoursOfTheWholeDay = filterDate(start, end, startDate, endDate);
 
             BigDecimal result = totalPowerAsCanProducePowerStation(decimalPair).subtract(producedPowerDuringTheDay(task, sumOfTheHoursOfTheWholeDay));
             result = scaleUpToTwoAfterComma(result);
@@ -40,12 +40,12 @@ public class DateCalculator {
         return decimalPair;
     }
 
-    private BigDecimal filterDateAndReturnSumOfTheHoursOfTheWholeDay(LocalDateTime start, LocalDateTime end, LocalDate startDate, LocalDate endDate) {
+    private BigDecimal filterDate(LocalDateTime start, LocalDateTime end, LocalDate startDate, LocalDate endDate) {
         BigDecimal sumOfTheHoursOfTheWholeDay = new BigDecimal(0);
-        if (checkIfTheGivenTimeIsBetweenTheStartDateAndEndDate(startDate, endDate)) {
+        if (dateExistsBetweenStartDateAndEndDate(startDate, endDate)) {
 
-            LocalTime min = ifTheDateStartsOnADifferentDayReturnTimeAtTheBeginningOfTheDayAndIfOnThisDayReturnTheTimeWhenItStarts(start, startDate);
-            LocalTime max = ifTheDateEndsOnADifferentDayReturnTimeAtTheEndOfTheDayAndIfOnThisDayReturnTheTimeWhenItEnds(end, endDate);
+            LocalTime min = filterMin(start, startDate);
+            LocalTime max = filterMax(end, endDate);
 
             int seconds = subtractMaxFromMin(max, min);
             sumOfTheHoursOfTheWholeDay = convertSecondsToHours(seconds);
@@ -61,11 +61,11 @@ public class DateCalculator {
         return task.getPowerLoss().multiply(sumOfTheHoursOfTheWholeDay);
     }
 
-    private boolean checkIfTheGivenTimeIsBetweenTheStartDateAndEndDate(LocalDate startDate, LocalDate endDate) {
+    private boolean dateExistsBetweenStartDateAndEndDate(LocalDate startDate, LocalDate endDate) {
         return startDate.compareTo(dateTime) <= 0 && 0 <= endDate.compareTo(dateTime);
     }
 
-    private LocalTime ifTheDateEndsOnADifferentDayReturnTimeAtTheEndOfTheDayAndIfOnThisDayReturnTheTimeWhenItEnds(LocalDateTime end, LocalDate endDate) {
+    private LocalTime filterMax(LocalDateTime end, LocalDate endDate) {
         LocalTime max = null;
         if (endDate.isAfter(dateTime)) {
             max = LocalTime.MAX;
@@ -76,7 +76,7 @@ public class DateCalculator {
         return max;
     }
 
-    private LocalTime ifTheDateStartsOnADifferentDayReturnTimeAtTheBeginningOfTheDayAndIfOnThisDayReturnTheTimeWhenItStarts(LocalDateTime start, LocalDate startDate) {
+    private LocalTime filterMin(LocalDateTime start, LocalDate startDate) {
         LocalTime min = null;
         if (startDate.isBefore(dateTime)) {
             min = LocalTime.MIN;
