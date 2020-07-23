@@ -6,7 +6,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -14,7 +13,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @SpringBootApplication
 @EnableFeignClients
 @EnableScheduling
-public class PowerStationApplication extends SpringBootServletInitializer implements RepositoryRestConfigurer {
+public class PowerStationApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(PowerStationApplication.class, args);
