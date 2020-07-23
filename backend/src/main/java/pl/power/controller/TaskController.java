@@ -29,18 +29,18 @@ public class TaskController {
     //    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @LogController
     @GetMapping
-    public Page<TaskDTO> getTasks(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                  @RequestParam(name = "size", defaultValue = "22", required = false) int size
+    public Page<TaskDTO> findAll(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                 @RequestParam(name = "size", defaultValue = "22", required = false) int size
     ) {
         PageRequest pageable = PageRequest.of(page, size);
         PairPageable<TaskDTO> pairPageable = taskService.findAll(pageable);
         return new PageImpl<>(pairPageable.getElements(), pageable, pairPageable.getTotalElements());
     }
 
-    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+//    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}")
-    public TaskDTO getTaskById(@PathVariable Long id) {
+    public TaskDTO findById(@PathVariable Long id) {
         return taskService.findById(id);
     }
 
@@ -48,7 +48,7 @@ public class TaskController {
     @LogController
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Long createTask(@Valid @RequestBody CreateTaskDTO createTaskDTO) {
+    public Long create(@Valid @RequestBody CreateTaskDTO createTaskDTO) {
         return taskService.add(createTaskDTO);
     }
 
@@ -56,14 +56,14 @@ public class TaskController {
     @LogController
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteTaskById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         taskService.delete(id);
     }
 
     @Secured("ROLE_ADMIN")
     @LogController
     @PatchMapping("/")
-    public TaskDTO updateTask(@Valid @RequestBody CreateTaskDTO createTaskDTO) {
+    public TaskDTO update(@Valid @RequestBody CreateTaskDTO createTaskDTO) {
         return taskService.update(createTaskDTO);
     }
 

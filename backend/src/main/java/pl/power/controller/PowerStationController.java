@@ -35,8 +35,8 @@ public class PowerStationController {
     //    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @LogController
     @GetMapping
-    public Page<PowerStationDTO> getPowerStations(@RequestParam(name = "page", defaultValue = "0") int page,
-                                                  @RequestParam(name = "size", defaultValue = "20") int size) {
+    public Page<PowerStationDTO> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                         @RequestParam(name = "size", defaultValue = "20") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         PairPageable<PowerStationDTO> pairPageable = powerStationService.findAll(pageRequest);
         log.info("method: getPowerStations send");
@@ -47,7 +47,7 @@ public class PowerStationController {
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}")
-    public PowerStationDTO getPowerStation(@PathVariable("id") Long id) {
+    public PowerStationDTO findById(@PathVariable("id") Long id) {
         return powerStationService.findById(id);
     }
 
@@ -55,7 +55,7 @@ public class PowerStationController {
     @LogController
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Long createPowerStation(@Valid @RequestBody PowerStationDTO powerStationDTO) {
+    public Long create(@Valid @RequestBody PowerStationDTO powerStationDTO) {
         return powerStationService.save(powerStationDTO);
     }
 
@@ -63,14 +63,14 @@ public class PowerStationController {
     @LogController
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deletePowerStation(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         powerStationService.delete(id);
     }
 
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @PatchMapping("/{id}")
-    public PowerStationDTO updatePowerStation(@PathVariable Long id, @Valid @RequestBody PowerStationDTO powerStationDTO) {
+    public PowerStationDTO update(@PathVariable Long id, @Valid @RequestBody PowerStationDTO powerStationDTO) {
         return powerStationService.update(id, powerStationDTO);
     }
 
@@ -84,7 +84,7 @@ public class PowerStationController {
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/")
-    public Map<Long, BigDecimal> getDateAndPower(@RequestParam(value = "date") String date) {
+    public Map<Long, BigDecimal> getIdAndPowerForTheGivenDay(@RequestParam(value = "date") String date) {
         return powerStationService.getIdAndPowerForTheGivenDay(date);
     }
 
@@ -92,7 +92,7 @@ public class PowerStationController {
     @LogController
     @GetMapping("/addAll")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void addAll() {
+    public void importTasks() {
         powerStationService.addAll();
     }
 
