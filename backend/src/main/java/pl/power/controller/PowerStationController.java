@@ -85,7 +85,7 @@ public class PowerStationController {
     @LogController
     @GetMapping("/")
     public Map<Long, BigDecimal> getDateAndPower(@RequestParam(value = "date") String date) {
-        return powerStationService.getDateAndPowerForTheGivenDay(date);
+        return powerStationService.getIdAndPowerForTheGivenDay(date);
     }
 
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
