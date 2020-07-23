@@ -44,7 +44,6 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     @CacheEvict(cacheNames = "tasks", allEntries = true)
     @Transactional
@@ -59,7 +58,6 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
         return taskRepository.findLastSaved();
     }
 
-    @Override
     @Cacheable
     public Long countEventsByIdPowerStation(Long id, String taskType) {
         if (id == null) {
@@ -77,7 +75,8 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
     @CacheEvict(cacheNames = "tasks", allEntries = true)
     @Transactional
     public TaskDTO update(CreateTaskDTO createTaskDTO) {
-        Task task = taskRepository.findById(createTaskDTO.getId()).orElseThrow(() -> new TaskNotFoundException(createTaskDTO.getId()));
+        Task task = taskRepository.findById(createTaskDTO.getId())
+                .orElseThrow(() -> new TaskNotFoundException(createTaskDTO.getId()));
         task.setPowerLoss(createTaskDTO.getPowerLoss());
         task.setTaskType(createTaskDTO.getTaskType());
         task.setStartDate(createTaskDTO.getStartDate());
