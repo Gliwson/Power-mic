@@ -3,7 +3,6 @@ package pl.power;
 import com.alla.getallevents.GetAllEventsRequest;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -14,7 +13,6 @@ import s0314.gettask.GetAllTasksResponse;
 
 
 @Log4j2
-@Disabled
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PowerStationApplicationTests {
 
@@ -22,7 +20,7 @@ class PowerStationApplicationTests {
 
     @BeforeEach
     public void init() throws Exception {
-        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetAllEventsRequest.class),ClassUtils.getPackageName(GetAllTasksRequest.class));
+        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetAllEventsRequest.class), ClassUtils.getPackageName(GetAllTasksRequest.class));
         marshaller.afterPropertiesSet();
     }
 
@@ -38,7 +36,7 @@ class PowerStationApplicationTests {
 //    }
 
     @Test
-    public void TestLocalSendAndReceive() {
+    void TestLocalSendAndReceive() {
         WebServiceTemplate ws = new WebServiceTemplate(marshaller);
 
         GetAllTasksRequest request = new GetAllTasksRequest();
