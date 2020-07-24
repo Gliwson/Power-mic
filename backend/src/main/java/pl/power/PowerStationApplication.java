@@ -28,4 +28,5 @@ public class PowerStationApplication extends SpringBootServletInitializer {
     Validator validator() {
         return new LocalValidatorFactoryBean();
     }
+
 }
