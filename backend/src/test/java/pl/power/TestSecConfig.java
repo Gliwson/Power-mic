@@ -1,6 +1,5 @@
 package pl.power;
 
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -10,7 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Profile("dev")
 @Configuration
 @EnableWebSecurity
-public class TestSecConfig extends WebSecurityConfigurerAdapter {
+public
+class TestSecConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
