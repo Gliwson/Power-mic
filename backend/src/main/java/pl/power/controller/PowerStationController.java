@@ -88,7 +88,7 @@ public class PowerStationController {
         return powerStationService.getIdAndPowerForTheGivenDay(date);
     }
 
-    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+//    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/addAll")
     @ResponseStatus(value = HttpStatus.CREATED)

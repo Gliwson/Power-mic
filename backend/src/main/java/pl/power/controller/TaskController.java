@@ -1,5 +1,6 @@
 package pl.power.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.power.aspect.LogController;
+import pl.power.domain.entity.TaskDocument;
+import pl.power.elasticRepository.TaskDocumentRepository;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
 import pl.power.services.TaskService;
@@ -15,15 +18,20 @@ import pl.power.services.impl.PairPageable;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TaskController {
 
     private final TaskService taskService;
+    private final TaskDocumentRepository taskDocumentRepository;
+    private final ModelMapper mapper;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, TaskDocumentRepository taskDocumentRepository, ModelMapper mapper) {
         this.taskService = taskService;
+        this.taskDocumentRepository = taskDocumentRepository;
+        this.mapper = mapper;
     }
 
     @GetMapping("/hello")
@@ -42,7 +50,7 @@ public class TaskController {
         return new PageImpl<>(pairPageable.getElements(), pageable, pairPageable.getTotalElements());
     }
 
-//    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+    //    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     @LogController
     @GetMapping("/{id}")
     public TaskDTO findById(@PathVariable Long id) {
@@ -77,6 +85,22 @@ public class TaskController {
     @GetMapping("/{id}/{taskType}")
     public Long getNumberOfEvents(@PathVariable Long id, @PathVariable String taskType) {
         return taskService.countEventsByIdPowerStation(id, taskType);
+    }
+
+    @GetMapping("/search/{name}")
+    public List<TaskDocument>  getByName(@PathVariable String name) {
+        return taskDocumentRepository.findByNamePowerStationLike(name);
+    }
+
+    @GetMapping("/add")
+    public void  add() {
+        List<TaskDTO> all = taskService.findAll();
+        all.forEach(taskDTO -> {
+            TaskDocument map = mapper.map(taskDTO, TaskDocument.class);
+            taskDocumentRepository.save(map);
+        });
+
+
     }
 
 }
