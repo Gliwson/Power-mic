@@ -1,14 +1,13 @@
-package pl.power.repository;
+package pl.power.feignRepository;
 
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import pl.power.model.PowerStationRemoteDto;
 
 import java.util.List;
-@Profile("prod")
+
 @FeignClient(name = "S0313", url = "http://S0313:9966/api/v1/stations/")
 public interface PowerStationWithRemoteServerRepository {
 
