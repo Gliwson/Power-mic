@@ -1,14 +1,17 @@
 package pl.power.controller;
 
 
+import com.alla.getallevents.EventXML;
+import com.alla.getallevents.GetAllEventsRequest;
+import com.alla.getallevents.GetAllEventsResponse;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.power.aspect.LogController;
+import pl.power.feignRepository.EventWithRemoteServerRepository;
 import pl.power.model.PowerStationRemoteDto;
-import pl.power.repository.EventWithRemoteServerRepository;
 import pl.power.services.PowerStationRemoteService;
 import s0314.gettask.GetAllTasksRequest;
 import s0314.gettask.GetAllTasksResponse;
@@ -36,13 +39,13 @@ public class FeignController {
         return remoteService.getAll();
     }
 
-//    @LogController()
-//    @GetMapping("/getpowerStations2")
-//    public List<Event> getEventWithFeign() {
-//        GetAllEventsRequest request = new GetAllEventsRequest();
-//        GetAllEventsResponse powerStation = remoteServerRepository.getPowerStation(request);
-//        return powerStation.getMylist();
-//    }
+    @LogController()
+    @GetMapping("/getpowerStations2")
+    public List<EventXML> getEventWithFeign() {
+        GetAllEventsRequest request = new GetAllEventsRequest();
+        GetAllEventsResponse powerStation = remoteServerRepository.getPowerStation(request);
+        return powerStation.getMylist();
+    }
 
     @LogController()
     @GetMapping("/getpower")
