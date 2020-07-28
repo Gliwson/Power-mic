@@ -41,7 +41,7 @@ public class FeignController {
 
     @LogController()
     @GetMapping("/getpowerStations2")
-    public List<EventXML> getEventWithFeign() {
+    public EventXML getEventWithFeign() {
         GetAllEventsRequest request = new GetAllEventsRequest();
         GetAllEventsResponse powerStation = remoteServerRepository.getPowerStation(request);
         return powerStation.getMylist();
