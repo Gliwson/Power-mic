@@ -19,7 +19,7 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 @Getter
 @Setter
 @ToString
-@Document(indexName = "task")
+@Document(indexName = "taskDocument")
 public class TaskDocument implements Serializable {
 
     private static final long serialVersionUID = 1L;

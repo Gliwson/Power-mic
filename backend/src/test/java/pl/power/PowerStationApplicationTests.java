@@ -19,7 +19,7 @@ import s0314.gettask.GetAllTasksRequest;
 import s0314.gettask.GetAllTasksResponse;
 import spock.lang.Specification;
 
-@Disabled
+//@Disabled
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class PowerStationApplicationTests extends Specification {
