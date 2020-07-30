@@ -14,6 +14,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @SpringBootApplication
 @EnableScheduling
+
 @EnableFeignClients(basePackages = "pl.power.feignRepository")
 @EnableElasticsearchRepositories(basePackages = "pl.power.elasticRepository")
 @EnableJpaRepositories(basePackages = "pl.power.repository")

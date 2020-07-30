@@ -1,5 +1,8 @@
 package pl.power.services.impl;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -8,23 +11,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import pl.power.constant.TaskType;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.constant.TaskType;
-import pl.power.repository.PowerStationRepository;
-import pl.power.repository.TaskRepository;
 import pl.power.exception.IdIsNullException;
 import pl.power.exception.PowerStationNotFoundException;
 import pl.power.exception.TaskNotFoundException;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
+import pl.power.repository.PowerStationRepository;
+import pl.power.repository.TaskRepository;
 import pl.power.services.TaskService;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,6 +87,37 @@ public class DefaultTaskService extends CrudAbstractService<Task, TaskDTO> imple
         task.setStartDate(createTaskDTO.getStartDate());
         task.setEndDate(createTaskDTO.getEndDate());
         return mapper.toDTO(task);
+    }
+
+    @Override
+    public File exportReportPDF() throws IOException {
+        List<Task> tasksAll = taskRepository.findAll();
+        Set<Long> longList = tasksAll.stream()
+                .map(value -> value.getPowerStation().getId())
+                .collect(Collectors.toSet());
+        powerStationRepository.findAllById(longList);
+        List<TaskDTO> taskDTOS = mapper.toDTOs(tasksAll);
+        File pdf = File.createTempFile("output.", ".pdf");
+
+        try {
+            File file = ResourceUtils.getFile("classpath:report/TasksPdfTemplate.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(taskDTOS);
+            Map<String, Object> parameters = new HashMap<>();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            JRDesignStyle jrDesignStyle = new JRDesignStyle();
+            jrDesignStyle.setDefault(true);
+            jrDesignStyle.setPdfEncoding("windows-1250");
+
+            jasperPrint.addStyle(jrDesignStyle);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
+        } catch (JRException | IOException e) {
+            e.printStackTrace();
+
+        }
+        return pdf;
     }
 
     @Override

@@ -1,11 +1,14 @@
 package pl.power.controller;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.power.aspect.LogController;
@@ -18,6 +21,9 @@ import pl.power.services.impl.PairPageable;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -88,19 +94,43 @@ public class TaskController {
     }
 
     @GetMapping("/search/{name}")
-    public List<TaskDocument>  getByName(@PathVariable String name) {
+    public List<TaskDocument> getByName(@PathVariable String name) {
         return taskDocumentRepository.findByNamePowerStationLike(name);
     }
 
     @GetMapping("/add")
-    public void  add() {
+    public void add() {
         List<TaskDTO> all = taskService.findAll();
         all.forEach(taskDTO -> {
             TaskDocument map = mapper.map(taskDTO, TaskDocument.class);
             taskDocumentRepository.save(map);
         });
-
-
     }
 
+    @GetMapping("/pdf")
+    public ResponseEntity<InputStreamResource> getPdf() {
+        File file;
+        long length = 0;
+        FileInputStream inputStream = null;
+        try {
+            file = taskService.exportReportPDF();
+            length = file.length();
+            inputStream = new FileInputStream(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (inputStream == null) {
+            return ResponseEntity
+                    .notFound().build();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentLength(length);
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(inputStream));
+    }
 }

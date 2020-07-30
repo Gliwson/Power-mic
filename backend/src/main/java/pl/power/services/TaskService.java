@@ -5,6 +5,8 @@ import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
 import pl.power.services.impl.PairPageable;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface TaskService {
@@ -22,4 +24,6 @@ public interface TaskService {
     TaskDTO update(CreateTaskDTO createTaskDTO);
 
     List<TaskDTO> findAll();
+
+    File exportReportPDF() throws IOException;
 }
