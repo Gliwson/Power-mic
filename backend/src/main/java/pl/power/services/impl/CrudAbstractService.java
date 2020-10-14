@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.power.domain.entity.EntityInterface;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.DTOInterface;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.NotFoundIDException;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.NotFoundIDException;
 
 import java.util.List;
 
@@ -25,6 +25,11 @@ public abstract class CrudAbstractService<E extends EntityInterface, D extends D
         Page<E> allEntities = jpaRepository.findAll(pageable);
         List<E> content = allEntities.getContent();
         return new PairPageable<>(allEntities.getTotalElements(), mapper.toDTOs(content));
+    }
+
+    public List<D> findAll() {
+        List<E> allEntities = jpaRepository.findAll();
+        return mapper.toDTOs(allEntities);
     }
 
     public D findById(Long id) {

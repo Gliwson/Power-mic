@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TasksTemplate" pageWidth="780" pageHeight="842" columnWidth="740" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="92887643-c764-495e-8b4b-1a61350a4909">
+	<field name="id" class="java.lang.Long"/>
+	<field name="namePowerStation" class="java.lang.String"/>
+	<field name="taskType" class="pl.power.constant.TaskType"/>
+	<field name="powerLoss" class="java.math.BigDecimal"/>
+	<field name="startDate" class="java.sql.Timestamp"/>
+	<field name="endDate" class="java.sql.Timestamp"/>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="780" height="92" backcolor="#006699" uuid="b31e3789-8e32-45cf-b2e8-f0ec91df4884">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="b0673e58-4933-4084-b899-302e07977026"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tasks]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="590" y="63" width="180" height="20" forecolor="#FFFFFF" uuid="92b037ad-c371-473f-9b4f-6eb5424bae7b"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tasks list]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25">
+			<line>
+				<reportElement x="-20" y="20" width="780" height="1" forecolor="#666666" uuid="124f0ad1-2bb0-462e-8e2d-536e5dee40bb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="50" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4e2264ed-752d-44e7-801a-a2eb08d643cd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71d59c42-3b56-4067-88aa-5912754ded7b"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="0" width="169" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="bbfd16b9-547a-47dd-a1fe-c09ca1b87691">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa3a2ccc-c9fa-47ce-9332-0d99f51d3b3e"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name power station]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="219" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3904e880-fa65-4893-8df1-84894ab5335d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="724db32c-6163-4379-812e-ae6902ed3419"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Task type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="330" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="201e50d9-d9f9-450b-9e95-eac286000424">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cb39831-8e5b-49d8-80e4-60abe9428c5e"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Power loss]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="441" y="0" width="140" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="559a0089-cd44-4260-932d-fbce8cc313a5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30b3112e-3c78-4e30-8d9a-75aea6d4ee1b"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="581" y="0" width="140" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="26df6967-391c-49f5-91f3-50e52d712fd2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30b3112e-3c78-4e30-8d9a-75aea6d4ee1b"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="760" height="1" uuid="74a0442c-311f-4aec-ad5c-2a4a6efc0bb8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="50" y="0" width="169" height="20" uuid="9ca4cc5c-eae8-4b48-a79a-93dfc69a89cd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cb39831-8e5b-49d8-80e4-60abe9428c5e"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namePowerStation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="0" width="111" height="20" uuid="2d97fe72-3559-4a54-be1f-55e349859a8c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30b3112e-3c78-4e30-8d9a-75aea6d4ee1b"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taskType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="111" height="20" uuid="80249aca-bef0-425c-8d82-3311fabcbd94">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30b3112e-3c78-4e30-8d9a-75aea6d4ee1b"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{powerLoss}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="50" height="20" uuid="da049e6e-eda7-4e1f-bcea-df5a1dfda431">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa3a2ccc-c9fa-47ce-9332-0d99f51d3b3e"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="0" width="140" height="20" uuid="04d0375d-5090-43c5-9cfc-0c68eaf5503f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71d59c42-3b56-4067-88aa-5912754ded7b"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="581" y="0" width="140" height="20" uuid="874f33eb-7a69-4a17-99df-ce7d8b040df4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="724db32c-6163-4379-812e-ae6902ed3419"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="684" height="13" backcolor="#E6E6E6" uuid="e47be1ec-9a3c-4f4e-ab9b-fc417157753f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="684" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="99c94c55-bef0-4e71-82e7-997db54d7a08"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="88e306e3-6572-4a45-a49c-3eac9d8d34c4"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,7 +1,7 @@
 import {KeycloakConfig, KeycloakInitOptions, KeycloakOptions} from 'keycloak-angular';
 
 const keycloakConfig: KeycloakConfig = {
-    url: 'http://localhost:8083/auth',
+    url: '/auth',
     realm: 'demo',
     clientId: 'my-app'
 };
@@ -14,7 +14,7 @@ const keycloakInitOptions: KeycloakInitOptions = {
 const keycloakOptions: KeycloakOptions = {
     config: keycloakConfig,
     initOptions: keycloakInitOptions,
-    enableBearerInterceptor: true
+    enableBearerInterceptor: true,
 };
 
 export const environment = {

@@ -1,13 +1,14 @@
 package pl.power.validation;
 
+import pl.power.exception.*;
 import pl.power.model.CreateTaskDTO;
-import pl.power.services.exception.TaskNotFoundException;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class StartDateIsGreaterThanEndDate implements ConstraintValidator<StartDateAndEndDate, CreateTaskDTO> {
 
+    @Override
     public void initialize(StartDateAndEndDate constraint) {
     }
 
@@ -16,8 +17,7 @@ public class StartDateIsGreaterThanEndDate implements ConstraintValidator<StartD
             return false;
         }
         if (!taskDTO.getStartDate().toLocalDateTime().isBefore(taskDTO.getEndDate().toLocalDateTime())) {
-            // TODO: 2020-06-24 add Exception with advice
-            throw new TaskNotFoundException(100L);
+            throw new StartDateIsAfterDateEndException();
         }
         return true;
     }

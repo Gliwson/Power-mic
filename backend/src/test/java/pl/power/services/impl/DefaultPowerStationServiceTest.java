@@ -9,10 +9,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
-import pl.power.domain.repository.PowerStationRepository;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.NotFoundIDException;
+import pl.power.constant.TaskType;
+import pl.power.repository.PowerStationRepository;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.NotFoundIDException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -116,7 +116,7 @@ class DefaultPowerStationServiceTest {
         //given
         given(repository.findAllOneSelect()).willReturn(Collections.singletonList(powerStation));
         //when
-        Map<Long, BigDecimal> result = service.getDateAndPower("2010-12-01");
+        Map<Long, BigDecimal> result = service.getIdAndPowerForTheGivenDay("2010-12-01");
         //then
         then(repository).should().findAllOneSelect();
         assertThat(result.size(), is(1));

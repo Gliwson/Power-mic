@@ -3,10 +3,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CreateTask} from '../models/task';
 import {PowerStation} from '../models/powerStations';
+import {environment} from '../../environments/environment.prod';
 
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
-const apiUrl ='http://localhost:8080/power/api' + '/powerstations';
+const apiUrl = environment.apiUrl + '/powerstations';
 
 @Injectable({
     providedIn: 'root'

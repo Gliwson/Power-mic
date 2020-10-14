@@ -9,17 +9,17 @@ import pl.power.calculator.DateCalculator;
 import pl.power.calculator.PairCalculator;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
-import pl.power.domain.repository.PowerStationRepository;
-import pl.power.domain.repository.TaskRepository;
-import pl.power.domain.xmlDomain.Capacity;
-import pl.power.domain.xmlDomain.Event;
-import pl.power.domain.xmlDomain.NameAndEic;
+import pl.power.constant.TaskType;
+import pl.power.repository.PowerStationRepository;
+import pl.power.repository.TaskRepository;
+import pl.power.domain.xml.Capacity;
+import pl.power.domain.xml.Event;
+import pl.power.domain.xml.NameAndEic;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.PowerStationDTO;
 import pl.power.services.PowerStationService;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.PowerStationNotFoundException;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.PowerStationNotFoundException;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -77,9 +77,13 @@ public class DefaultPowerStationService extends CrudAbstractService<PowerStation
                 .count();
     }
 
+    /**
+     * a method that takes a date and returns a map in which
+     * the keys will be the ID of the power station, and the values ​​will be the power for the given day.
+     */
     @Override
     @Cacheable
-    public Map<Long, BigDecimal> getDateAndPower(String date) {
+    public Map<Long, BigDecimal> getIdAndPowerForTheGivenDay(String date) {
         DateCalculator dateCalculator = new DateCalculator(date);
         return powerStationRepository.findAllOneSelect().stream()
                 .map(dateCalculator::subtractPowerLossFromPower)

@@ -10,13 +10,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import pl.power.domain.entity.PowerStation;
 import pl.power.domain.entity.Task;
-import pl.power.domain.entity.enums.TaskType;
-import pl.power.domain.repository.TaskRepository;
+import pl.power.constant.TaskType;
+import pl.power.repository.TaskRepository;
 import pl.power.mapper.MapperInterface;
 import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
-import pl.power.services.exception.IdIsNullException;
-import pl.power.services.exception.NotFoundIDException;
+import pl.power.exception.IdIsNullException;
+import pl.power.exception.NotFoundIDException;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

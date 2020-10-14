@@ -6,9 +6,12 @@ import pl.power.services.impl.PairPageable;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 public interface PowerStationService {
+
+    List<PowerStationDTO> findAll();
 
     Long save(PowerStationDTO powerStationDTO);
 
@@ -22,7 +25,7 @@ public interface PowerStationService {
 
     Long countEventsByIdPowerStation(Long id, String taskType);
 
-    Map<Long, BigDecimal> getDateAndPower(String date);
+    Map<Long, BigDecimal> getIdAndPowerForTheGivenDay(String date);
 
     @Transactional
     void addAll();

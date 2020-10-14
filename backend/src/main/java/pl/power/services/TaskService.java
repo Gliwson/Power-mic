@@ -5,6 +5,10 @@ import pl.power.model.CreateTaskDTO;
 import pl.power.model.TaskDTO;
 import pl.power.services.impl.PairPageable;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 public interface TaskService {
 
     Long add(CreateTaskDTO createTaskDTO);
@@ -18,4 +22,8 @@ public interface TaskService {
     Long countEventsByIdPowerStation(Long id, String taskType);
 
     TaskDTO update(CreateTaskDTO createTaskDTO);
+
+    List<TaskDTO> findAll();
+
+    File exportReportPDF() throws IOException;
 }
